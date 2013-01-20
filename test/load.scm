@@ -17,5 +17,6 @@
 ;;; <http://www.gnu.org/licenses/>.
 
 (load-relative "../testing/load")
+(load-relative-compiled "streams-test")
 (load-relative-compiled "meta-system-test")
 (load-relative-compiled "properties-test")

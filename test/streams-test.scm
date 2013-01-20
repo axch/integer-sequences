@@ -21,31 +21,31 @@
 (in-test-group
  streams
 
- (define-each-test
-   (assert-equal
+ (define-each-check
+   (equal?
     '(1/4 1/3 1/2 1)
     (stream->list 4 (stream-map / (stream 4 3 2 1 0))))
-   (assert-equal
+   (equal?
     '(1/4 1/3 1/2)
     (stream->list 3
      (stream-filter (lambda (n)
                       (< n 1))
-                    (stream-map / (stream 4 3 2 1 0)))))
-   (assert-equal
+      (stream-map / (stream 4 3 2 1 0)))))
+   (equal?
     '(1 2 3 4 5 6)
     (stream->list (stream-unfold 1 (lambda (x) (+ x 1)) (lambda (x) (>= x 7)))))
-   (assert-equal
+   (equal?
     '(2 4 6)
     (stream->list 
      (stream-filter even?
       (stream-unfold 1 (lambda (x) (+ x 1)) (lambda (x) (>= x 7))))))
-   (assert-equal
+   (equal?
     '(10001)
     (stream->list 1
      (stream-filter (lambda (n) (> n 10000))
-                    (stream-unfold 1 (lambda (x) (+ x 1))))))
-   (assert-equal
+      (stream-unfold 1 (lambda (x) (+ x 1))))))
+   (equal?
     '(100001)
     (stream->list 1
      (stream-filter (lambda (n) (> n 100000))
-                    (stream-unfold 1 (lambda (x) (+ x 1))))))))
+      (stream-unfold 1 (lambda (x) (+ x 1))))))))

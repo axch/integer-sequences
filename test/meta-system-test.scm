@@ -145,4 +145,48 @@
 		  (up-streamer->up-ranger
 		   (streamer->up-streamer
 		    (generator->streamer triangle))))
-		 8 45))))
+		 8 45)))
+
+ (let ((square-seq (construct-seq 'generator square)))
+   (define-each-test
+     (assert-equal 36 ((seq-generator     square-seq) 6))
+     (assert-equal 6  ((seq-inverter      square-seq) 36))
+     (assert-true     ((seq-tester        square-seq) 25))
+     (assert-equal 5  ((seq-counter       square-seq) 17 100))
+     (assert-equal
+      '(1 4 9 16)
+      (stream->list 4 ((seq-streamer      square-seq))))
+     (assert-equal
+      '(25 36 49 64)
+      (stream->list 4 ((seq-up-streamer   square-seq) 20)))
+     (assert-equal
+      '(64 49 36 25 16 9 4 1)
+      (stream->list   ((seq-down-streamer square-seq) 70)))
+     (assert-equal
+      '(25 36 49 64)
+      (stream->list   ((seq-up-ranger     square-seq) 25 70)))
+     (assert-equal
+      '(64 49 36)
+      (stream->list   ((seq-down-ranger   square-seq) 25 70)))))
+
+ (let ((prime-seq (construct-seq 'tester prime?)))
+   (define-each-test
+     (assert-equal 13 ((seq-generator     prime-seq) 6))
+     (assert-equal 6  ((seq-inverter      prime-seq) 13))
+     (assert-false    ((seq-tester        prime-seq) 25))
+     (assert-equal 5  ((seq-counter       prime-seq) 17 37))
+     (assert-equal
+      '(2 3 5 7)
+      (stream->list 4 ((seq-streamer      prime-seq))))
+     (assert-equal
+      '(23 29 31 37)
+      (stream->list 4 ((seq-up-streamer   prime-seq) 20)))
+     (assert-equal
+      '(37 31 29 23 19 17 13 11 7 5 3 2)
+      (stream->list   ((seq-down-streamer prime-seq) 37)))
+     (assert-equal
+      '(29 31 37)
+      (stream->list   ((seq-up-ranger     prime-seq) 25 40)))
+     (assert-equal
+      '(37 31 29)
+      (stream->list   ((seq-down-ranger   prime-seq) 25 40))))))

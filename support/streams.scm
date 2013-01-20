@@ -178,11 +178,9 @@
 	    (loop (stream-cdr stream) answer))
 	answer)))
 
-(define (stream-unfold seed gen #!optional stop? f tail-gen)
+(define (stream-unfold seed gen #!optional stop? tail-gen)
   (if (default-object? tail-gen)
       (set! tail-gen (lambda (x) stream-nil)))
-  (if (default-object? f)
-      (set! f (lambda (x) x)))
   (if (default-object? stop?)
       (set! stop? (lambda (x) #f)))
   (let recur ((seed seed))
@@ -190,6 +188,6 @@
      (if (stop? seed)
 	 (tail-gen seed)
 	 (stream-cons
-	  (f seed)
+	  seed
 	  (recur (gen seed)))))))
 

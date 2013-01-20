@@ -256,3 +256,47 @@ to the like-named procedures operating on lists.
   (generator^k seed))`, which, if not `stream-nil`, will cause the
   stream to be improper.  If `stop?` is not supplied or never returns
   `#t`, the stream will be infinite.
+
+Portability
+===========
+
+Integer Sequences is written in MIT Scheme with no particular
+portability considerations in mind.  On the one hand, it is purely
+computational, relying on no external resources whatever; on the other
+hand, it does liberally use MIT Scheme extensions that are not
+standard Scheme.  Of particular note is the syntactic-closures macro
+system, whose controlled non-hygiene enables the `integer-sequence`
+macro to implement the naming convention for sequence operations.
+
+I expect Integer Sequences to run unmodified on any platform MIT
+Scheme supports, and I expect Integer Sequences should be semantically
+fairly easy to port to other Scheme systems, provided they offer a
+macro facility with controlled non-hygiene.
+
+Author
+======
+
+Alexey Radul, axch@mit.edu.  The streams library was written primarily
+by Taylor Campbell, maintained and modified by Alexey Radul and Joyce
+Chen.
+
+License
+=======
+
+This file is part of Integer Sequences, a library for recreational
+number theory in MIT Scheme.
+Copyright 2013 Alexey Radul.
+
+Integer Sequences is free software; you can redistribute it and/or
+modify it under the terms of the GNU Affero General Public License
+as published by the Free Software Foundation; either version 3 of
+the License, or (at your option) any later version.
+
+This code is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Integer Sequences; if not, see
+<http://www.gnu.org/licenses/>.

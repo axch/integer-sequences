@@ -243,10 +243,12 @@ to the like-named procedures operating on lists.
 - `(stream->list stream)` does not terminate if the stream is infinite.
 - `(stream x y ...)` analagous to the procedure `list`, but a macro
   because the point is to delay evaluating `x`, `y`, ...
-- `(stream-take stream n)` return a _list_ of the first `n` elements of `stream`
-- `(stream-drop stream n)` return a _stream_ without the first `n` elements of `stream`
-- `(stream-drop-while predicate stream)` return a _stream_
-- `(stream-take-while predicate stream)` return a _stream_
+- `(stream-take stream n)`
+- `(stream-take->list stream n)` convenience procedure; returns the
+  first `n` elements of `stream` as a list.
+- `(stream-drop stream n)`
+- `(stream-drop-while predicate stream)`
+- `(stream-take-while predicate stream)`
 - `(stream-reverse stream)` does not terminate if the stream is infinite
 - `(stream-count predicate stream)` does not terminate if the stream is infinite
 - `(stream-unfold seed generator #!optional stop? tail-generator)`

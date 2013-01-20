@@ -120,7 +120,16 @@
     ((STREAM x y ...) (stream-cons x (stream y ...)))))
 
 (define (stream-take stream n)
-  (stream->list n stream))
+  (lazy
+   (let loop ((stream stream) (n n))
+     (cond ((<= n 0) stream-nil)
+	   ((stream-pair? stream)
+	    (stream-cons (stream-car stream)
+                         (loop (stream-cdr stream) (- n 1))))
+	   (else (error "The stream wasn't long enough"))))))
+
+(define (stream-take->list stream n)
+  (stream->list (stream-take stream n)))
 
 (define (stream-drop stream n)
   (lazy

@@ -48,4 +48,8 @@
     '(100001)
     (stream->list 1
      (stream-filter (lambda (n) (> n 100000))
-      (stream-unfold 1 (lambda (x) (+ x 1))))))))
+      (stream-unfold 1 (lambda (x) (+ x 1))))))
+   (equal?
+    '(1 2 3)
+    (stream->list
+     (stream-take (stream-unfold 1 (lambda (x) (+ x 1))) 3)))))

@@ -235,11 +235,11 @@
 (integer-sequence mersenne generator)
 
 (define (primorial number)
-  (product (stream-take (the-primes) number)))
+  (product (stream-take->list (the-primes) number)))
 (integer-sequence primorial generator)
 
 (define (compositorial number)
-  (product (stream-take (the-composites) number)))
+  (product (stream-take->list (the-composites) number)))
 (integer-sequence compositorial generator)
 
 (define (integer-log base number)

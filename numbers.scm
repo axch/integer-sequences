@@ -40,15 +40,6 @@
 (define (decrement n)
   (- n 1))
 
-(define (double number)
-  (* 2 number))
-
-(define (triple number)
-  (* 3 number))
-
-(define (halve number)
-  (/ number 2))
-
 (define (sum numbers)
   (apply + numbers))
 
@@ -67,20 +58,6 @@
 	accum
 	(loop (- n 1) (* accum n)))))
 (integer-sequence factorial generator)
-
-(define (choose k n)
-  (/ (factorial n)
-     (* (factorial k)
-	(factorial (- n k)))))
-
-(define (distribute num-objects num-buckets)
-  ;; Distribute exactly n identical objects among k buckets.  Consider
-  ;; a sequence of n+k-1 slots, exactly k-1 of which must be bucket
-  ;; separators, and the remaining n must be the objects.
-  ;; Distributions of the objects into the buckets are in one-to-one
-  ;; correspondence with such sequences.  There are (choose k-1 out of
-  ;; n+k-1) such sequences.
-  (choose (- num-buckets 1) (+ num-objects (- num-buckets 1))))
 
 (define (fibonacci n)
   (cond ((> n 0) (fibonacci+ n))
@@ -149,14 +126,6 @@
   (and (not (= 1 number))
        (not (prime? number))))
 (integer-sequence composite tester)
-
-(define (coprime? n1 n2)
-  (= 1 (gcd n1 n2)))
-
-(define (euler-phi n)
-  ;; TODO There is a more efficient way of doing this based on 
-  ;; prime factorization and the multiplicativity of phi.
-  (length (filter (lambda (n2) (coprime? n n2)) (iota (- n 1) 1))))
 
 (define (semiprime? number)
   (= 2 (length (prime-factors number))))
@@ -241,18 +210,6 @@
 (define (compositorial number)
   (product (stream-take->list (the-composites) number)))
 (integer-sequence compositorial generator)
-
-(define (integer-log base number)
-  "Returns the 'integer inverse', as above, of exponentiating the
-base, at number.  In other words, if the return value is an integer,
-then it is exactly the logarithm of number with base base, and if not,
-it is an exact non-integer strictly between the same two integers that
-said logarithm is strictly between."
-  ((invert-by-binary-search (lambda (n) (expt base n)))
-   number))
-
-(define (power-of? base number)
-  (integer? (integer-log base number)))
 
 ;;;; Figurate numbers
 
@@ -418,90 +375,3 @@ said logarithm is strictly between."
     (and (> (length digits) 2)
 	 (undulating? (car digits) (cadr digits) (cddr digits)))))
 (integer-sequence undulating tester)
-
-;;;; Words
-(define (number->words number)
-  (define named-numbers
-    '((0 . "zero") (1 . "one") (2 . "two") (3 . "three") (4 . "four")
-      (5 . "five") (6 . "six") (7 . "seven") (8 . "eight") (9 . "nine")
-      (10 . "ten") (11 . "eleven") (12 . "twelve") (13 . "thirteen")
-      (14 . "fourteen") (15 . "fifteen") (16 . "sixteen") (17 . "seventeen")
-      (18 . "eighteen") (19 . "nineteen") (20 . "twenty") (30 . "thirty")
-      (40 . "forty") (50 . "fifty") (60 . "sixty") (70 . "seventy")
-      (80 . "eighty") (90 . "ninety")))
-  (define breakpoints
-    `((100 . "hundred")
-      (1000 . "thousand")
-      (1000000 . "million")
-      (,(expt 10 9) . "billion")
-      (,(expt 10 12) . "trillion")
-      (,(expt 10 15) . "quadrillion")
-      (,(expt 10 18) . "quintillion")
-      (,(expt 10 21) . "sixillion")
-      (,(expt 10 24) . "septillion")
-      (,(expt 10 27) . "octillion")
-      (,(expt 10 30) . "nonillion")
-      (,(expt 10 33) . "decillion")
-      ))
-  (define (splice-at divisor name)
-    (let ((high (quotient number divisor))
-	  (low (remainder number divisor)))
-      (append
-       (number->words high)
-       (if name (list name) '())
-       (number->words low))))
-  (define (breakpoint number)
-    (if (< number (caar breakpoints))
-	#f
-	(let loop ((current-break (car breakpoints))
-		   (breakpoints-left (cdr breakpoints)))
-	  (if (or (null? breakpoints-left)
-		  (< number (caar breakpoints-left)))
-	      current-break
-	      (loop (car breakpoints-left)
-		    (cdr breakpoints-left))))))
-  (cond ((assoc number named-numbers)
-	 (list (cdr (assoc number named-numbers))))
-	((< number 100)
-	 (let ((tens (quotient number 10))
-	       (ones (remainder number 10)))
-	   (list (car (number->words (* 10 tens)))
-		 (car (number->words ones)))))
-	(else
-	 (let ((break (breakpoint number)))
-	   (splice-at (car break) (cdr break))))))
-
-(define (letter-count number)
-  (sum (map string-length (number->words number))))
-
-(define alphabet "abcdefghijklmnopqrstuvwxyz")
-
-(define (to-letter n)
-  (string-ref alphabet (- n 1)))
-
-(define (letter->number letter)
-  (+ 1 (string-find-next-char alphabet letter)))
-
-(define (number->roman-numerals number)
-  (let loop ((number number)
-	     (answer "")
-	     (numerals
-	      '("M" "CM" "D" "CD" "C" "XC" "L" "XL" "X" "IX" "V" "IV" "I"))
-	     (decimal-values
-	      '(1000 900 500 400 100 90 50 40 10 9 5 4 1)))
-    (cond ((null? numerals)
-	   answer)
-	  ((< number (car decimal-values))
-	   (loop number answer (cdr numerals) (cdr decimal-values)))
-	  (else
-	   (loop (- number (car decimal-values))
-		 (string-append answer (car numerals))
-		 numerals
-		 decimal-values)))))
-
-(define (common-alphabetical-value string)
-  (define (char-value char)
-    (+ (- (char->integer (char-downcase char))
-	  (char->integer #\a))
-       1))
-  (apply + (map char-value (string->list string))))

@@ -75,3 +75,54 @@ half-integer between the two answers if there is no exact integer
 inverse; so for instance `(cube-root 8)` returns 2, but `(cube-root
 10)` returns 5/2 (as does `cube-root` of anything else between 9 and
 26, inclusive).
+
+Provided Sequences
+------------------
+
+The following sequences are provided with Integer Sequences, and
+implement all the sequences functions described
+[above](#sequence-operations).
+
+| Singular Name     | Brief Definition                                               |
+|-------------------+----------------------------------------------------------------|
+| integer           | the integers                                                   |
+| factorial         | product of the first k consecutive integers                    |
+| fibonacci         | 1, 1, ..., fib(n-1) + fib(n-2)                                 |
+| prime             | integers > 1 divisible by no other                             |
+| composite         | integers > 1 divisible by another                              |
+| semiprime         | integers with exactly two prime factors, counting multiplicity |
+| square-free       | integers divisible by each prime at most once                  |
+| perfect           | n = sum of all proper divisors of n := aliquot(n)              |
+| abundant          | n < sum of all proper divisors of n =                          |
+| deficient         | n > sum of all proper divisors of n =                          |
+| amicable          | not perfect, but n = aliquot(aliquot(n))                       |
+| aspiring          | not perfect, but aliquot^m(n) is perfect for some m            |
+| mersenne          | 2^p-1 for prime p.  If also prime, called a Mersenne prime     |
+| primorial         | product of the first k primes                                  |
+| compositorial     | produce of the first k composites                              |
+| square            | number of objects in some k by k square = k*k                  |
+| cube              | number of objects in some k by k by k cube = k*k*k             |
+| triangle          | same for triangle with k objects on a side = k*(k+1)/2         |
+| pentagon          | same for pentagon = k*(3k-1)/2                                 |
+| hexagon           | same for hexagon = k*(2k-1)                                    |
+| heptagon          | same for heptagon = k*(5k-3)/2                                 |
+| octagon           | same for octagon = k*(3k-2)                                    |
+| nonagon           | same for nonagon = k*(7k-5)/2                                  |
+| decagon           | same for decagon = k*(4k-3)                                    |
+| tetrahedron       | same for tetrahedron = k*(k+1)*(k+2)                           |
+| pronic            | k*(k+1) for some k                                             |
+| pandigital        | decimal expansion uses all 10 digits                           |
+| evil              | binary expansion uses an even number of 1s                     |
+| odious            | binary expansion uses an odd number of 1s                      |
+| multidigit        | decimal expansion has more than 1 digit (i.e., n >= 10)        |
+| palindrome        | reads the same forwards and backwards in decimal               |
+| emirp             | non-palindromic prime which is also prime read backwards       |
+| emirpimes         | same, but both semiprime                                       |
+| strobogrammatic   | reads the same normally and upside-down in decimal (e.g., 609) |
+| apocalyptic-power | n such that 2^n contains "666" as a substring (in decimal)     |
+| smith             | a composite whose sum of digits equals                         |
+|                   | the sum of the digits of its prime factors                     |
+| hoax              | same, but distinct prime factors                               |
+| repunit           | every digit (in decimal) is 1                                  |
+| repdigit          | decimal expansion uses only one distinct digit (e.g., 333)     |
+| undulating        | decimal expansion follows pattern ababababab (e.g., 212)       |

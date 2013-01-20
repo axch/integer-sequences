@@ -18,3 +18,4 @@
 
 (load-relative "../testing/load")
 (load-relative-compiled "meta-system-test")
+(load-relative-compiled "properties-test")

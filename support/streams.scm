@@ -102,16 +102,11 @@
          (stream-cons (car list) (recur (cdr list)))
          stream-nil))))
 
-(define (stream->list n #!optional stream)
-  (if (default-object? stream)
-      (begin
-	(set! stream n)
-	(set! n #f)))
-  (let loop ((stream stream) (reversed-list '()) (count 0))
-    (if (and (or (not n) (< count n)) (stream-pair? stream))
+(define (stream->list stream)
+  (let loop ((stream stream) (reversed-list '()))
+    (if (stream-pair? stream)
         (loop (stream-cdr stream)
-              (cons (stream-car stream) reversed-list)
-	      (+ count 1))
+              (cons (stream-car stream) reversed-list))
         (reverse! reversed-list))))
 
 (define-syntax stream

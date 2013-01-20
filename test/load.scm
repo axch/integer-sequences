@@ -1,6 +1,6 @@
 ;;; This file is part of Integer Sequences, a library for recreational
 ;;; number theory in MIT Scheme.
-;;; Copyright 2007-2009 Alexey Radul.
+;;; Copyright 2013 Alexey Radul.
 ;;;
 ;;; Integer Sequences is free software; you can redistribute it and/or
 ;;; modify it under the terms of the GNU Affero General Public License
@@ -17,3 +17,4 @@
 ;;; <http://www.gnu.org/licenses/>.
 
 (load-relative "../testing/load")
+(load-relative-compiled "meta-system-test")

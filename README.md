@@ -126,3 +126,81 @@ implement all the sequences functions described
 | repunit           | every digit (in decimal) is 1                                  |
 | repdigit          | decimal expansion uses only one distinct digit (e.g., 333)     |
 | undulating        | decimal expansion follows pattern ababababab (e.g., 212)       |
+
+All of these are strictly monotonic except the Fibonacci numbers, so
+their integer inverses are well defined.  By special dispensation,
+`(fibonacci-root 1)` returns 1 (as opposed to 2), and
+`(count-fibonaccis 1 4)` returns 4 (as opposed to 3), on the gounds
+that 1 is a Fibonacci number twice.
+
+Making Your Own Sequences
+-------------------------
+
+The sequence operations are mutually interdefinable: if you have any
+one of them, you can construct all the rest mechanically (these
+contructions depend on monotonicity, in general).  Integer Sequences
+provides a facility for doing this for user sequences.  For example,
+if you have a formula, you can make a full sequence out of it like
+this:
+
+```scheme
+(define (my-number k)
+  ... ; your code to compute the kth "my-number"
+  )
+;; Defines my-number?, my-number-root, count-my-numbers,
+;; the-my-numbers, my-numbers-from, my-numbers-down-from,
+;; my-numbers-between, and my-numbers-between-down for you, in terms
+;; of my-number.
+(integer-sequence my-number generator)
+```
+
+The other common pattern is to turn a tester into a sequence:
+
+```scheme
+(define (my-other-number? n)
+  ... ; your code to check wether n is a "my-other-number"
+  )
+;; Defines my-other-number, my-other-number-root,
+;; count-my-other-numbers, the-my-other-numbers,
+;; my-other-numbers-from, my-other-numbers-down-from,
+;; my-other-numbers-between, and my-other-numbers-between-down for
+;; you, in terms of my-other-number?.
+(integer-sequence my-other-number tester)
+```
+
+You can, however, predefine however many of the operations you like
+and ask `integer-sequence` to define the others in terms of them.
+Doing this can lead to substanital speedups: the only general way to
+compute the kth foo if all you can do is check whether something is a
+foo is to test all integers starting at 1 until you've found k foos.
+Needless to say, an explicit formula would be much preferable.
+
+<table>
+<tr><td align="center">
+<img src="http://web.mit.edu/~axch/www/numbers-meta.png" alt="Diagram
+ of operation derivations">
+</td></tr>
+<tr><td align="center">
+<p><b>Figure 1</b>: A summary of how operations are derived from each other.
+The full description is in numbers-meta.scm.</p>
+</td></tr>
+</table>
+
+`(integer-sequence name available-operation ...)` syntax
+
+Completes the definition of a sequence named `name` (which is not
+evaluated and must be a symbol) from the given available operations,
+defining all the missing ones.  Input operations must be given by
+procedures that follow the [naming convention](#sequence-operations),
+and new operations are defined to follow it also.  Each
+`available-operation` must be one of the (unevaluated) symbols
+`generator`, `inverter`, `tester`, `counter`, `streamer`,
+`up-streamer`, `down-streamer`, `up-ranger`, or `down-ranger`.
+
+There is also a procedural interface to deriving sequence operations
+and accessing the results; see numbers-meta.scm.
+
+Streams
+-------
+
+TODO

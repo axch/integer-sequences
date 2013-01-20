@@ -186,7 +186,7 @@ The full description is in numbers-meta.scm.</p>
 </td></tr>
 </table>
 
-`(integer-sequence name available-operation ...)` syntax
+`(integer-sequence name available-operation1 available-operation2 ...)` syntax
 
 Completes the definition of a sequence named `name` (which is not
 evaluated and must be a symbol) from the given available operations,
@@ -203,4 +203,57 @@ and accessing the results; see numbers-meta.scm.
 Streams
 -------
 
-TODO
+Since lazy streams are not standard in Scheme, but it can be natural
+for many purposes to view an integer sequence as an infinite stream of
+its elements, Integer Sequences includes a library for creating and
+manipulating streams.  Programmatically the streams come up because
+the operations `the-foos`, `foos-from`, `foos-down-from`,
+`foos-between`, and `foos-between-down` for each sequence return
+streams.  I note for connoisseurs that this library implements _even
+streams_.
+
+This is not the place for an explanation of the idea of streams or the
+interesting phenomena that arise in their implementation in a strict
+language like Scheme, so I will content myself with a summary of the
+available procedures.  Except where noted, they are entirely analagous
+to the like-named procedures operating on lists.
+
+- `(stream-cons first rest)` Unlike standard `cons`, this is a macro,
+  since the point is to delay evaluating `first` or `rest` until
+  needed.
+- `(stream-pair? stream)`
+- `(stream-null? stream)`
+- `stream-nil` is the empty stream
+- `(stream-car stream)`
+- `(stream-cdr stream)`
+- `(stream-map procedure stream)`
+- `(stream-filter predicate stream)`
+- `(stream-filter-map procedure stream)` like `stream-map`, but
+  exclude elements on which `procedure` returned `#f`.
+- `(stream-for-each procedure stream)` note that this differs from
+  `stream-map` in that it actually forces evaluation of the
+  `procedure` on the `stream`, instead of simply returning a new
+  stream.  It also differs from `stream->list` in that it does not
+  retain the stream as it goes.  In contrast with a list, a stream
+  produced computationally, transformed by `stream-map`,
+  `stream-filter`, etc, and consumed by `stream-for-each` need never be
+  stored in memory all at once.
+- `(stream-append stream1 stream2)`
+- TODO `stream-diagonalize`
+- `(list->stream list)`
+- `(stream->list stream)` does not terminate if the stream is infinite.
+- `(stream x y ...)` analagous to the procedure `list`, but a macro
+  because the point is to delay evaluating `x`, `y`, ...
+- `(stream-take stream n)` return a _list_ of the first `n` elements of `stream`
+- `(stream-drop stream n)` return a _stream_ without the first `n` elements of `stream`
+- `(stream-drop-while predicate stream)` return a _stream_
+- `(stream-take-while predicate stream)` return a _stream_
+- `(stream-reverse stream)` does not terminate if the stream is infinite
+- `(stream-count predicate stream)` does not terminate if the stream is infinite
+- `(stream-unfold seed generator #!optional stop? tail-generator)`
+  Return a stream of `seed`, `(generator seed)`, `(generator
+  (generator seed))`, until (stop? (generator^k seed)) is true.  If
+  `tail-generator` is supplied, the stream ends with `(tail-generator
+  (generator^k seed))`, which, if not `stream-nil`, will cause the
+  stream to be improper.  If `stop?` is not supplied or never returns
+  `#t`, the stream will be infinite.

@@ -66,17 +66,19 @@
              square (generator->inverter square))
             16 50)))
   (equal? '(16 25 36 49 64)
-          (stream->list 5
+          (stream-take->list
            ((tester->up-streamer
              (inverter->tester
               (generator->inverter
                square)))
-            16)))
+            16)
+           5))
   (equal? '(16 25 36 49 64)
-          (stream->list 5
+          (stream-take->list
            ((generator+inverter->up-streamer
              square (generator->inverter square))
-            16)))
+            16)
+           5))
   (equal? '(49 36 25 16 9 4 1)
           (stream->list
            ((down-ranger->down-streamer
@@ -86,12 +88,13 @@
                 square))))
             49)))
   (equal? '(1 4 9 16 25 36 49 64)
-          (stream->list 8
+          (stream-take->list
            ((up-streamer->streamer
              (tester->up-streamer
               (inverter->tester
                (generator->inverter
-                square)))))))
+                square)))))
+           8))
   (equal? 81
           ((streamer->generator
             (up-streamer->streamer
@@ -101,12 +104,13 @@
                 square)))))
            9))
 
-  (equal? '(1 3 6 10) (stream->list 4 ((generator->streamer triangle))))
+  (equal? '(1 3 6 10) (stream-take->list ((generator->streamer triangle)) 4))
   (equal? '(10 15 21 28)
-          (stream->list 4
+          (stream-take->list
            ((streamer->up-streamer
              (generator->streamer triangle))
-            8)))
+            8)
+           4))
   (equal? '(10 15 21 28 36)
           (stream->list
            ((up-streamer->up-ranger
@@ -153,14 +157,14 @@
    (define-each-check
      (equal? 36 ((seq-generator     square-seq) 6))
      (equal? 6  ((seq-inverter      square-seq) 36))
-     ((seq-tester        square-seq) 25)
+                ((seq-tester        square-seq) 25)
      (equal? 5  ((seq-counter       square-seq) 17 100))
      (equal?
       '(1 4 9 16)
-      (stream->list 4 ((seq-streamer      square-seq))))
+      (stream-take->list ((seq-streamer      square-seq)) 4))
      (equal?
       '(25 36 49 64)
-      (stream->list 4 ((seq-up-streamer   square-seq) 20)))
+      (stream-take->list ((seq-up-streamer   square-seq) 20) 4))
      (equal?
       '(64 49 36 25 16 9 4 1)
       (stream->list   ((seq-down-streamer square-seq) 70)))
@@ -179,10 +183,10 @@
      (equal? 5  ((seq-counter       prime-seq) 17 37))
      (equal?
       '(2 3 5 7)
-      (stream->list 4 ((seq-streamer      prime-seq))))
+      (stream-take->list ((seq-streamer      prime-seq)) 4))
      (equal?
       '(23 29 31 37)
-      (stream->list 4 ((seq-up-streamer   prime-seq) 20)))
+      (stream-take->list ((seq-up-streamer   prime-seq) 20) 4))
      (equal?
       '(37 31 29 23 19 17 13 11 7 5 3 2)
       (stream->list   ((seq-down-streamer prime-seq) 37)))

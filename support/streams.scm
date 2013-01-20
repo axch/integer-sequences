@@ -95,24 +95,6 @@
                       (recur (stream-cdr stream-a)))
          stream-b))))
 
-(define (stream-diagonalize streams)
-  (let diagonalize ((streams streams))
-    (lazy
-     (if (not (stream-pair? streams))
-         stream-nil
-         (let ((stream (stream-car streams)))
-           (if (not (stream-pair? stream))
-               (recur (stream-cdr streams))
-               (stream-cons
-                (stream-car stream)
-                (let recur ((stream-a (diagonalize (stream-cdr streams)))
-                            (stream-b (stream-cdr stream)))
-                  (lazy
-                   (if (stream-pair? stream-a)
-                       (stream-cons (stream-car stream-a)
-                                    (recur stream-b (stream-cdr stream-a)))
-                       stream-b))))))))))
-
 (define (list->stream list)
   (let recur ((list list))
     (lazy

@@ -239,7 +239,6 @@ to the like-named procedures operating on lists.
   `stream-filter`, etc, and consumed by `stream-for-each` need never be
   stored in memory all at once.
 - `(stream-append stream1 stream2)`
-- TODO `stream-diagonalize`
 - `(list->stream list)`
 - `(stream->list stream)` does not terminate if the stream is infinite.
 - `(stream x y ...)` analagous to the procedure `list`, but a macro

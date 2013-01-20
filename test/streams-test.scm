@@ -24,13 +24,14 @@
  (define-each-check
    (equal?
     '(1/4 1/3 1/2 1)
-    (stream->list 4 (stream-map / (stream 4 3 2 1 0))))
+    (stream-take->list (stream-map / (stream 4 3 2 1 0)) 4))
    (equal?
     '(1/4 1/3 1/2)
-    (stream->list 3
+    (stream-take->list
      (stream-filter (lambda (n)
                       (< n 1))
-      (stream-map / (stream 4 3 2 1 0)))))
+      (stream-map / (stream 4 3 2 1 0)))
+     3))
    (equal?
     '(1 2 3 4 5 6)
     (stream->list (stream-unfold 1 (lambda (x) (+ x 1)) (lambda (x) (>= x 7)))))
@@ -41,14 +42,16 @@
       (stream-unfold 1 (lambda (x) (+ x 1)) (lambda (x) (>= x 7))))))
    (equal?
     '(10001)
-    (stream->list 1
+    (stream-take->list
      (stream-filter (lambda (n) (> n 10000))
-      (stream-unfold 1 (lambda (x) (+ x 1))))))
+      (stream-unfold 1 (lambda (x) (+ x 1))))
+     1))
    (equal?
     '(100001)
-    (stream->list 1
+    (stream-take->list
      (stream-filter (lambda (n) (> n 100000))
-      (stream-unfold 1 (lambda (x) (+ x 1))))))
+      (stream-unfold 1 (lambda (x) (+ x 1))))
+     1))
    (equal?
     '(1 2 3)
     (stream->list

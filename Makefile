@@ -20,6 +20,6 @@ test:
 	mit-scheme --compiler -heap 6000 --batch-mode --no-init-file --eval '(set! load/suppress-loading-message? #t)' --eval '(begin (load "load") (load "test/load") (run-tests-and-exit))'
 
 README.html: README.md
-	redcarpet --parse-fenced-code-blocks --render-with-toc-data README.md > README.html
+	redcarpet --parse-fenced-code-blocks --render-with-toc-data --render-with-tables README.md > README.html
 
 .PHONY: test

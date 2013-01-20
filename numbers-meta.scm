@@ -130,35 +130,10 @@
 	    (if (<= x (f mid))
 		(loop lower mid)
 		(loop mid upper)))))))
-
+
 ;;; Also, in some cases, more efficient methods are possible, relying,
 ;;; for example, on Newton's Method.  Unfortunately, it is not clear
-;;; how to determine automatically which cases those are, so this is a
-;;; one-off example of such a device.
-
-;;; TODO There are integers that are so big that trying to take their
-;;; sqrt fails.  Maybe I should just give up and use Newton's Method
-;;; all the way, instead of starting at the sqrt?
-(define (floor-sqrt number)
-  "Returns the greatest integer whose square does not exceed the
-argument.  This diverges from (floor (sqrt number)) when number is not
-a perfect square, and large enough that the roundoff error in (sqrt
-number) changes the integer produced by floor."
-  (cond ((< number 0)
-	 (error "No integer's square is less than" number))
-	((< number 1) 0)
-	(else
-	 (let loop ((guess (inexact->exact (floor (sqrt number)))))
-	   (let ((better-guess (+ guess 
-				  (quotient (- number (square guess))
-					    (* 2 guess)))))
-	     ;; This suffices to ensure that better-guess does not exceed
-	     ;; the true square root
-	     (if (> (square better-guess) number)
-		 (set! better-guess (- better-guess 1)))
-	     (if (= guess better-guess)
-		 guess
-		 (loop better-guess)))))))
+;;; how to determine automatically which cases those are.
 
 ;;;; The Integers
 

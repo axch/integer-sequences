@@ -19,6 +19,9 @@
 test:
 	mit-scheme --compiler -heap 6000 --batch-mode --no-init-file --eval '(set! load/suppress-loading-message? #t)' --eval '(begin (load "load") (load "test/load") (run-tests-and-exit))'
 
+numbers-meta.png: numbers-meta.fig Makefile
+	fig2dev -L png -m 1.5 numbers-meta.fig numbers-meta.png
+
 README.html: README.md
 	redcarpet --parse-fenced-code-blocks --render-with-toc-data --render-with-tables README.md > README.html
 

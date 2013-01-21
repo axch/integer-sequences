@@ -110,7 +110,7 @@ implement all the sequences functions described
 | octagon           | same for octagon = k*(3k-2)                                    |
 | nonagon           | same for nonagon = k*(7k-5)/2                                  |
 | decagon           | same for decagon = k*(4k-3)                                    |
-| tetrahedron       | same for tetrahedron = k*(k+1)*(k+2)                           |
+| tetrahedron       | same for tetrahedron = k*(k+1)*(k+2)/6                         |
 | pronic            | k*(k+1) for some k                                             |
 | pandigital        | decimal expansion uses all 10 digits                           |
 | evil              | binary expansion uses an even number of 1s                     |

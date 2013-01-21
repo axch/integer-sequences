@@ -201,7 +201,7 @@ There is also a procedural interface to deriving sequence operations
 and accessing the results; see numbers-meta.scm.
 
 Streams
--------
+=======
 
 Since lazy streams are not standard in Scheme, but it can be natural
 for many purposes to view an integer sequence as an infinite stream of
@@ -260,7 +260,7 @@ to the like-named procedures operating on lists.
   `#t`, the stream will be infinite.
 
 Supporting Facilities
----------------------
+=====================
 
 Some of the helper functions used in defining sequences are useful in
 their own right, for thinking about numbers and their properties.  In

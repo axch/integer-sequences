@@ -49,15 +49,6 @@
 ;;; Operation      Name                Function
 ;;; ...            ...                 ...
 ;;; meta-object    foo-seq             the meta object, below
-
-;;; TODO Performance: test counter->inverter for performance and fit
-;;; it in.  Going tester->ranger->counter->inverter is probably better
-;;; than tester->streamer->generator->inverter.
-
-;;; TODO Performance: collapse appropriate compositions of arrows
-;;; (notably the-foos->foo->foo-root and foo-root->foo->streams could
-;;; shave off a log factor); also, I can avoid allocating the promises
-;;; that the streams would generate by doing loop fusion.
 
 ;;;; Integer Inverses
 
@@ -311,9 +302,17 @@ empty slots with closures derived, by some path through the
 numbers-meta diagram, from the available operations already in the
 object.  This is done by repeatedly trying the various operations, in
 a relatively sensible order, until they produce no more change."
-  ;; Heh.  A propagator network would do a much better job of this
-  ;; (especially if I taught it how to prefer one procedure over
-  ;; another by runtime).
+  ;; TODO Performace: I need a smarter graph search than this.  It
+  ;; really should choose the end result based on some expectation of
+  ;; the performance of the composition, which cannot really be
+  ;; captured with a static order of things to try.  In the case of
+  ;; multiple starting points, it may be nice to allow the user to
+  ;; provide relative costs.
+
+  ;; TODO Performance: collapse appropriate compositions of arrows
+  ;; (notably the-foos->foo->foo-root and foo-root->foo->streams could
+  ;; shave off a log factor); also, I can avoid allocating the
+  ;; promises that the streams would generate by doing loop fusion.
   (define source transform-source)
   (define target transform-target)
   (define action transform-action)

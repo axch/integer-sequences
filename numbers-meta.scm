@@ -20,12 +20,13 @@
 
 ;;;; Mechanisms for operating on various views of integer sequences.
 
-;;; The two common ways that integer sequences are defined are by
-;;; giving a predicate to test membership in the sequence (and letting
-;;; the sequence be monotonically increasing) or by giving a mechanism
-;;; to compute the nth element of the sequence (a recurrence can be
-;;; seen as a special case of such a mechanism).  One wants, however,
-;;; to be able to carry out various operations on sequences,
+;;; The common ways that integer sequences are defined are by giving a
+;;; predicate to test membership in the sequence (and letting the
+;;; sequence be monotonically increasing), by giving a mechanism to
+;;; compute the kth element of the sequence, or by giving a mechanism
+;;; to compute the first k elements of the sequence (a recurrence can
+;;; be seen as a special case of such a mechanism).  One wants,
+;;; however, to be able to carry out various operations on sequences,
 ;;; regardless of how they are defined, including generating
 ;;; individual elements by index, constructing a (possibly bounded)
 ;;; stream of elements, testing whether a number is an element, and,
@@ -38,7 +39,7 @@
 ;;; in the accompanying figure numbers-meta.fig.  The code below
 ;;; implements these transformations, assuming that all sequences are
 ;;; from Z+ --> Z+, infinite, and strictly monotonically increasing.
-
+
 ;;; This file culminates in the definition of the integer-sequence
 ;;; macro which constructs any missing sequence operations and defines
 ;;; them in the environment according to the naming convention given
@@ -48,8 +49,6 @@
 ;;; Operation      Name                Function
 ;;; ...            ...                 ...
 ;;; meta-object    foo-seq             the meta object, below
-
-;;; TODO Completeness: Incorporate a theory of recurrences?
 
 ;;; TODO Performance: test counter->inverter for performance and fit
 ;;; it in.  Going tester->ranger->counter->inverter is probably better

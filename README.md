@@ -88,7 +88,7 @@ implement all the sequences functions described
 |-------------------|----------------------------------------------------------------|
 | integer           | the integers                                                   |
 | factorial         | product of the first k consecutive integers                    |
-| fibonacci         | 1, 1, ..., fib(n-1) + fib(n-2)                                 |
+| fibonacci         | 1, 1, ..., fib(k-1) + fib(k-2), ...                            |
 | prime             | integers > 1 divisible by no other                             |
 | composite         | integers > 1 divisible by another                              |
 | semiprime         | integers with exactly two prime factors, counting multiplicity |

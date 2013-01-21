@@ -55,4 +55,8 @@
    (equal?
     '(1 2 3)
     (stream->list
-     (stream-take (stream-unfold 1 (lambda (x) (+ x 1))) 3)))))
+     (stream-take (stream-unfold 1 (lambda (x) (+ x 1))) 3)))
+   (equal?
+    '(1 2 3 4)
+    (stream->list
+     (stream-concat (stream (stream 1 2) (stream 3 4)))))))

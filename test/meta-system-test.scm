@@ -215,4 +215,6 @@
    ; This fails because fibonacci-root never returns 2
    ; (= 1 ((inverter->generator fibonacci-root) 2))
    (= 6765 ((inverter->generator fibonacci-root) 20))
+   (equal? '(10 14 15 21 22)
+    (stream-take->list ((up-ranger->up-streamer semiprimes-between) 10) 5))
    ))

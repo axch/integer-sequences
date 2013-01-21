@@ -191,6 +191,15 @@
     (stream-take-while (lambda (n) (< n upper))
 		       (up-streamer lower))))
 
+(define (up-ranger->up-streamer up-ranger)
+  (define (next n)
+    (max (* 2 n) (+ 1 n)))
+  (define (interval n)
+    (up-ranger n (next n)))
+  (lambda (from)
+    (stream-concat
+     (stream-map interval (stream-unfold from next)))))
+
 (define (up-ranger->down-ranger up-ranger)
   (lambda (lower upper)
     ;; Adding 1 to fix the inclusivity

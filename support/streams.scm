@@ -95,6 +95,13 @@
                       (recur (stream-cdr stream-a)))
          stream-b))))
 
+(define (stream-concat streams)
+  (lazy
+   (if (stream-null? streams)
+       stream-nil
+       (stream-append (stream-car streams)
+                      (stream-concat (stream-cdr streams))))))
+
 (define (list->stream list)
   (let recur ((list list))
     (lazy

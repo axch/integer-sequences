@@ -364,6 +364,16 @@ Scheme supports, and I expect Integer Sequences should be semantically
 fairly easy to port to other Scheme systems, provided they offer a
 macro facility with controlled non-hygiene.
 
+Bugs
+====
+
+The Aliquot sequences of some integers, the smallest of which is 276,
+have not been fully computed, and are not known not to grow without
+bound.  It is therefore not actually known whether 276 (or other such
+integers) is aspiring or not.  Integer Sequences uses a heuristic to
+guess whether an Aliquot sequence appears to be growing without bound
+and reports "not aspiring" if so.  This is arguably a bug.
+
 Unimplemented Features
 ======================
 

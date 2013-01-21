@@ -98,7 +98,7 @@ implement all the sequences functions described
 | deficient         | n > sum of all proper divisors of n                            |
 | amicable          | not perfect, but n = aliquot(aliquot(n))                       |
 | aspiring          | not perfect, but aliquot^m(n) is perfect for some m            |
-| mersenne          | 2^p-1 for prime p.  If also prime, called a Mersenne prime     |
+| mersenne          | (2^p)-1 for prime p.  If also prime, called a Mersenne prime   |
 | primorial         | product of the first k primes                                  |
 | compositorial     | produce of the first k composites                              |
 | square            | number of objects in some k by k square = k*k                  |

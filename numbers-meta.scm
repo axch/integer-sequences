@@ -333,7 +333,7 @@ a relatively sensible order, until they produce no more change."
       ((_ form ...)
        (list (transform-of form) ...))))
   (define the-transforms
-    ;; In order of increasing cost
+    ;; Roughly in order of increasing cost
     (transforms
      inverter->tester
      inverter->counter
@@ -350,7 +350,7 @@ a relatively sensible order, until they produce no more change."
      up-ranger->counter
      down-ranger->counter
 
-     ;; TODO Binary transforms go here
+     ;; TODO Binary transforms go here?
 
      generator->inverter
 
@@ -364,6 +364,7 @@ a relatively sensible order, until they produce no more change."
      up-ranger->down-ranger
      down-ranger->up-ranger
      streamer->generator
+     inverter->generator
      ))
 
   (define (seq-get field-symbol)

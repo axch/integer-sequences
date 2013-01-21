@@ -51,18 +51,10 @@
 
 ;;; TODO Completeness: Incorporate a theory of recurrences?
 
-;;; TODO Performance: Here's what the counter->inverter fiddle looks
-;;; like:
-;; (define (counter->inverter counter)
-;;   (lambda (n)
-;;     (+ (counter 0 n) ; Exclusive of n
-;;        (let ((n-count (counter n (+ n 1)))) ; Exclusive of n+1
-;;          (if (= n-count 0)
-;;              1/2 ; n is not not an element
-;;              n-count)))))
-;;; test it for correctness and performance and fit it in.  It could be
-;;; useful for going from tester->ranger->counter->inverter instead
-;;; of tester->streamer->generator->inverter
+;;; TODO Performance: test counter->inverter for correctness and
+;;; performance and fit it in.  It could be useful for going from
+;;; tester->ranger->counter->inverter instead of
+;;; tester->streamer->generator->inverter.
 
 ;;; TODO Performance: collapse appropriate compositions of arrows
 ;;; (notably the-foos->foo->foo-root and foo-root->foo->streams could
@@ -206,6 +198,16 @@
   (lambda (number)
     (stream-pair? (up-ranger number (+ number 1)))))
 
+(define (down-streamer->down-ranger down-streamer)
+  (lambda (lower upper)
+    (stream-take-while (lambda (n) (> n lower))
+		       (down-streamer upper))))
+
+(define (down-ranger->up-ranger down-ranger)
+  (lambda (lower upper)
+    ;; Subtracting 1 to fix the inclusivity
+    (stream-reverse (down-ranger (- lower 1) (- upper 1)))))
+
 (define (down-ranger->tester down-ranger)
   (lambda (number)
     (stream-pair? (down-ranger (- number 1) number))))
@@ -228,6 +230,11 @@
   (lambda (lower upper)
     (stream-count (lambda (x) #t) (up-ranger lower upper))))
 
+(define (down-ranger->counter down-ranger)
+  (lambda (lower upper)
+    ;; Subtracting 1 to fix the inclusivity
+    (stream-count (lambda (x) #t) (down-ranger (- lower 1) (- upper 1)))))
+
 (define (inverter->counter inverter)
   ;; There are (- (ceiling (inverter upper)) 1) of them that are
   ;; strictly less than upper; I want to subtract from them the
@@ -235,6 +242,18 @@
   (lambda (lower upper)
     (- (ceiling (inverter upper))
        (ceiling (inverter lower)))))
+
+(define (counter->tester counter)
+  (lambda (number)
+    (> (counter number (+ number 1)) 0)))
+
+(define (counter->inverter counter)
+  (lambda (n)
+    (+ (counter 0 n) ; Exclusive of n
+       (let ((n-count (counter n (+ n 1)))) ; Exclusive of n+1
+         (if (= n-count 0)
+             1/2 ; n is not not an element
+             n-count)))))
 
 ;;;; Meta Objects
 

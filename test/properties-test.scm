@@ -131,6 +131,9 @@
   (equal? '(15 10 6 3 1) (stream->list (triangles-down-from 15)))
   (equal? '(10 15 21 28 36) (stream->list (triangles-between 9 37)))
   (equal? '(36 28 21 15 10) (stream->list (triangles-between-down 9 37)))
+  (= 120 (hexagon 8))
+  (= 9 (hexagon-root 153))
+  (hexagon? 190)
   ;; TODO Other figurate numbers
 
   (equal? '(1 2 3 4) (number->digits 1234))

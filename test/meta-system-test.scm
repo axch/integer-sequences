@@ -154,7 +154,7 @@
    (define-each-check
      (= 36 ((seq-generator     square-seq) 6))
      (= 6  ((seq-inverter      square-seq) 36))
-                ((seq-tester        square-seq) 25)
+           ((seq-tester        square-seq) 25)
      (= 5  ((seq-counter       square-seq) 17 100))
      (equal?
       '(1 4 9 16)
@@ -176,7 +176,7 @@
    (define-each-check
      (= 13 ((seq-generator     prime-seq) 6))
      (= 6  ((seq-inverter      prime-seq) 13))
-     (not       ((seq-tester        prime-seq) 25))
+     (not  ((seq-tester        prime-seq) 25))
      (= 5  ((seq-counter       prime-seq) 17 37))
      (equal?
       '(2 3 5 7)
@@ -192,4 +192,20 @@
       (stream->list   ((seq-up-ranger     prime-seq) 25 40)))
      (equal?
       '(37 31 29)
-      (stream->list   ((seq-down-ranger   prime-seq) 25 40))))))
+      (stream->list   ((seq-down-ranger   prime-seq) 25 40)))))
+
+ (define-each-check
+   ((counter->tester count-primes) 17)
+   (not ((counter->tester count-primes) 18))
+   (= 3 ((down-ranger->counter squares-between-down) 3 20))
+   (= 3 ((down-ranger->counter squares-between-down) 4 20))
+   (= 2 ((down-ranger->counter squares-between-down) 4 16))
+   (< 0 ((counter->inverter count-perfects) 5) 1)
+   (= 1 ((counter->inverter count-perfects) 6))
+   (< 1 ((counter->inverter count-perfects) 7) 2)
+   (= 15 ((counter->inverter count-pentagons) (pentagon 15)))
+   (equal? '(190 153 120)
+    (stream->list ((down-streamer->down-ranger hexagons-down-from) 100 200)))
+   (equal? '(120 153 190)
+    (stream->list ((down-ranger->up-ranger hexagons-between-down) 100 200)))
+   ))

@@ -213,6 +213,8 @@
   (lambda (number)
     (stream-pair? (down-ranger (- number 1) number))))
 
+;; TODO These three, being binary, are unused (even though they may be
+;; better).
 (define (generator+inverter->up-streamer generator inverter)
   (lambda (low)
     (stream-map generator (integers-from (ceiling (inverter low))))))

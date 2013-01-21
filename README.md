@@ -25,17 +25,17 @@ Sequence Operations
 Every sequence defined by Integer Sequences provides the following
 operations:
 
-| Operation     | Name                    | Returns                                   |
-|---------------|-------------------------|-------------------------------------------|
-| generator     | (foo k)                 | The kth foo (1-indexed)                   |
-| inverter      | (foo-root n)            | Integer Inverse of foo at n (see below)   |
-| tester        | (foo? n)                | Is n a foo?                               |
-| counter       | (count-foos l h)        | How many foos in l <= foo < h             |
-| streamer      | (the-foos)              | Stream of all (positive) foos             |
-| up-streamer   | (foos-from n)           | Same, starting from >= n                  |
-| down-streamer | (foos-down-from n)      | Same, but <= n going down                 |
-| up-ranger     | (foos-between l h)      | Stream of foos in l <= foo < h            |
-| down-ranger   | (foos-between-down l h) | Stream of foos in h >= foo > l going down |
+| Operation     | Name                      | Returns                                   |
+|---------------|---------------------------|-------------------------------------------|
+| generator     | `(foo k)`                 | The kth foo (1-indexed)                   |
+| inverter      | `(foo-root n)`            | Integer Inverse of foo at n (see below)   |
+| tester        | `(foo? n)`                | Is n a foo?                               |
+| counter       | `(count-foos l h)`        | How many foos in l <= foo < h             |
+| streamer      | `(the-foos)`              | Stream of all (positive) foos             |
+| up-streamer   | `(foos-from n)`           | Same, starting from >= n                  |
+| down-streamer | `(foos-down-from n)`      | Same, but <= n going down                 |
+| up-ranger     | `(foos-between l h)`      | Stream of foos in l <= foo < h            |
+| down-ranger   | `(foos-between-down l h)` | Stream of foos in h >= foo > l going down |
 
 For example, `(perfect 3)` returns 496, `(factorial? 8)` returns false,
 `(the-primes)` returns an infinite stream that starts with 2, 3, 5, 7,

@@ -337,11 +337,13 @@ a relatively sensible order, until they produce no more change."
     (transforms
      inverter->tester
      inverter->counter
+     counter->tester
      generator->streamer
 
      down-ranger->down-streamer
      up-streamer->streamer
      up-streamer->up-ranger
+     down-streamer->down-ranger
      up-ranger->tester
      down-ranger->tester
 

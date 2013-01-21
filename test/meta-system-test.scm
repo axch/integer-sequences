@@ -22,16 +22,16 @@
  meta-system
 
  (define-each-test
-   (check (equal? 9/2  ((invert-by-counting square) 20)) "4 < sqrt(20) < 5")
-   (check (equal? 5    ((invert-by-counting square) 25)) "5 >= sqrt(25)")
-   (check (equal? 11/2 ((invert-by-counting square) 26)) "5 < sqrt(26) < 6")
-   (check (equal? 1    ((invert-by-binary-search square) 1)) "1 >= sqrt(1)")
-   (check (equal? 9/2  ((invert-by-binary-search square) 20)) "4 < sqrt(20) < 5")
-   (check (equal? 5    ((invert-by-binary-search square) 25)) "5 >= sqrt(25)")
-   (check (equal? 11/2 ((invert-by-binary-search square) 26)) "5 < sqrt(26) < 6"))
+   (check (= 9/2  ((invert-by-counting square) 20)) "4 < sqrt(20) < 5")
+   (check (= 5    ((invert-by-counting square) 25)) "5 >= sqrt(25)")
+   (check (= 11/2 ((invert-by-counting square) 26)) "5 < sqrt(26) < 6")
+   (check (= 1    ((invert-by-binary-search square) 1)) "1 >= sqrt(1)")
+   (check (= 9/2  ((invert-by-binary-search square) 20)) "4 < sqrt(20) < 5")
+   (check (= 5    ((invert-by-binary-search square) 25)) "5 >= sqrt(25)")
+   (check (= 11/2 ((invert-by-binary-search square) 26)) "5 < sqrt(26) < 6"))
 
  (define-each-check
-  (equal? 4 ((inverter->counter (generator->inverter square)) 16 50))
+  (= 4 ((inverter->counter (generator->inverter square)) 16 50))
   ((inverter->tester (generator->inverter square)) 36)
   (not ((inverter->tester (generator->inverter square)) 35))
   (equal? '(16 25 36 49)
@@ -46,13 +46,12 @@
            ((generator+inverter->up-ranger
              square (generator->inverter square))
             16 50)))
-  (equal? 4
-          ((up-ranger->counter
-            (tester->up-ranger
-             (inverter->tester
-              (generator->inverter
-               square))))
-           16 50))
+  (= 4 ((up-ranger->counter
+         (tester->up-ranger
+          (inverter->tester
+           (generator->inverter
+            square))))
+        16 50))
   (equal? '(49 36 25)
           (stream->list
            ((tester->down-ranger
@@ -95,14 +94,13 @@
                (generator->inverter
                 square)))))
            8))
-  (equal? 81
-          ((streamer->generator
-            (up-streamer->streamer
-             (tester->up-streamer
-              (inverter->tester
-               (generator->inverter
-                square)))))
-           9))
+  (= 81 ((streamer->generator
+          (up-streamer->streamer
+           (tester->up-streamer
+            (inverter->tester
+             (generator->inverter
+              square)))))
+         9))
 
   (equal? '(1 3 6 10) (stream-take->list ((generator->streamer triangle)) 4))
   (equal? '(10 15 21 28)
@@ -146,19 +144,18 @@
            (streamer->up-streamer
             (generator->streamer triangle)))))
         46))
-  (equal? 5
-          ((up-ranger->counter
-            (up-streamer->up-ranger
-             (streamer->up-streamer
-              (generator->streamer triangle))))
-           8 45)))
+  (= 5 ((up-ranger->counter
+         (up-streamer->up-ranger
+          (streamer->up-streamer
+           (generator->streamer triangle))))
+        8 45)))
 
  (let ((square-seq (construct-seq 'generator square)))
    (define-each-check
-     (equal? 36 ((seq-generator     square-seq) 6))
-     (equal? 6  ((seq-inverter      square-seq) 36))
+     (= 36 ((seq-generator     square-seq) 6))
+     (= 6  ((seq-inverter      square-seq) 36))
                 ((seq-tester        square-seq) 25)
-     (equal? 5  ((seq-counter       square-seq) 17 100))
+     (= 5  ((seq-counter       square-seq) 17 100))
      (equal?
       '(1 4 9 16)
       (stream-take->list ((seq-streamer      square-seq)) 4))
@@ -177,10 +174,10 @@
 
  (let ((prime-seq (construct-seq 'tester prime?)))
    (define-each-check
-     (equal? 13 ((seq-generator     prime-seq) 6))
-     (equal? 6  ((seq-inverter      prime-seq) 13))
+     (= 13 ((seq-generator     prime-seq) 6))
+     (= 6  ((seq-inverter      prime-seq) 13))
      (not       ((seq-tester        prime-seq) 25))
-     (equal? 5  ((seq-counter       prime-seq) 17 37))
+     (= 5  ((seq-counter       prime-seq) 17 37))
      (equal?
       '(2 3 5 7)
       (stream-take->list ((seq-streamer      prime-seq)) 4))

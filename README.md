@@ -53,11 +53,12 @@ sequence, computing its index, and given an integer that is not an
 element of a sequence, computing the indecies of the two adjacent
 elements it falls between.  To be precise:
 
-> Define an _integer inverse_ of a monotonic function f: N --> N to be
-> any function g: N --> Q such that, for each n, either
+> Define an _integer inverse_ of a monotonic function f: Z+ --> Z+ to be
+> any function g: Z+ --> Q+ such that, for each n, either
 >
 > - g(n) is an integer and f(g(n)) = n, or
-> - g(n) is not an integer and f(floor(g(n))) < n < f(ceiling(g(n))).
+> - g(n) is not an integer and f(floor(g(n))) < n < f(ceiling(g(n))),
+>   where we formally take f(0) = 0 to cover the case where n < f(1).
 
 The function g is not itself unique (because it can return any
 non-integer within the desired bounds when its input is not a member

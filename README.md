@@ -364,6 +364,57 @@ Scheme supports, and I expect Integer Sequences should be semantically
 fairly easy to port to other Scheme systems, provided they offer a
 macro facility with controlled non-hygiene.
 
+Unimplemented Features
+======================
+
+Integer Sequences presently only operates on _strictly increasing_,
+_infinite_ sequences of _positive_ integers.  These restrictions could
+perhaps be relaxed, allowing operation on various other kinds of
+sequences:
+
+- _Nondecreasing_ (as opposed to strictly increasing) sequences should
+  be easy.  In fact, everything probably already works as well as can
+  be expected; the work would consist of ironing out the semantics of,
+  e.g., integer inverse.  N.B.: The Fibonacci numbers are already
+  nondecreasing at the start: 1,1.
+
+- Sequences of _negative numbers_ (i.e., functions from Z+ to Z)
+  probably work out of the box (or almost out of the box) too, modulo
+  care with the semantics.  Are there any interesting ones?
+
+- _Finite_ sequences shouldn't be too hard either.  The main effort
+  would be pinning down the semantics of, e.g., (foo k) for k larger
+  than the end of the sequence.
+
+- _Decreasing_ (as opposed to increasing) sequences become a
+  possibility once negative or finite sequences are introduced.
+  Handling them should not be difficult, but they would need to be
+  distinguished from increasing ones.  Are there any nontrivially
+  interesting decreasing sequences?
+
+- _Bidirectional_ sequences, that is, increasing functions from Z to Z
+  (rather than Z+ to Z+) are another possibility.  This is mildly
+  problematic because requiring a sequence to be monotonic over all
+  the integers is a stricter requirement than over positive integers
+  only (e.g., squares), so any two-way sequences would have to coexist
+  with one-way sequences, and care may need to be exercised to
+  distinguish them.  It is also not clear whether there are any
+  bidirectional sequences that are nontrivially more interesting than
+  their unidirectional counterparts.
+
+- _Non-monotonic_ sequences are significantly more of a problem,
+  because a lot of the automatic transformations from one operation to
+  another rely on monotonicity.
+
+- _Parametric_ sequences (for instance, powers of k), are a
+  tantalizing possiblity.  The main impediment is that the current
+  naming convention implies that any given procedure operates on
+  exactly one sequence (because there is no room for an argument to
+  the procedure that could serve as the parameter determining the
+  sequence).  Given an appropriate extension of the naming convention
+  to admit parameters, the derivation machinery should be easily
+  adaptable.
+
 Author
 ======
 

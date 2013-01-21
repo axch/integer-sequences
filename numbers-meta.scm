@@ -68,18 +68,6 @@
 ;;; (notably the-foos->foo->foo-root and foo-root->foo->streams could
 ;;; shave off a log factor); also, I can avoid allocating the promises
 ;;; that the streams would generate by doing loop fusion.
-
-;;; TODO Possible, as yet unimplemented extensions: non-decreasing
-;;; sequences, finite sequences, negative numbers?, and non-monotonic
-;;; sequences?
-
-;;; Finite sequences could be represented by (foo k) returning a
-;;; distinguished (exact!) +inty object for over-large k.  (foo-root
-;;; +infty) should return the maximum legal index plus 1/2.  The
-;;; streams would need to be careful to terminate at the end of the
-;;; sequence.
-
-;;; Negative numbers introduce non-monotonicities (square, fibonacci)
 
 ;;;; Integer Inverses
 

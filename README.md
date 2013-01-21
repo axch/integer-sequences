@@ -280,7 +280,7 @@ sequences](#provided-sequences), Integer Sequences provides
 - `(divisors n)` All divisors as a list, in increasing order.
 - `(proper-divisors n)`
 - `(sigma n)` The operator that generates the Aliquot sequence: the
-  sum of the proper divisors.
+  sum of the proper divisors of `n`.
 - `(number->digits n #!optional base)` The digits in the base `base`
   (default 10) expansion of `n` as a list (most significant first).
 - `(digits n #!optional base)` Alias for `number->digits`

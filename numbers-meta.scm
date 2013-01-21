@@ -146,6 +146,9 @@
 (define (generator->inverter generator)
   (invert-by-binary-search generator))
 
+(define (inverter->generator inverter)
+  (invert-by-binary-search inverter))
+
 (define (inverter->tester inverter)
   (lambda (number)
     (integer? (inverter number))))

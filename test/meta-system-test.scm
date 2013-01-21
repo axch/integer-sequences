@@ -208,4 +208,11 @@
     (stream->list ((down-streamer->down-ranger hexagons-down-from) 100 200)))
    (equal? '(120 153 190)
     (stream->list ((down-ranger->up-ranger hexagons-between-down) 100 200)))
+   (= 120 ((inverter->generator factorial-root) 5))
+   (= 1 ((inverter->generator square-root) 1))
+   (= 10000 ((inverter->generator square-root) 100))
+   (= 1 ((inverter->generator fibonacci-root) 1))
+   ; This fails because fibonacci-root never returns 2
+   ; (= 1 ((inverter->generator fibonacci-root) 2))
+   (= 6765 ((inverter->generator fibonacci-root) 20))
    ))

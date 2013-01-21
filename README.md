@@ -100,7 +100,7 @@ implement all the sequences functions described
 | aspiring          | not perfect, but aliquot^m(n) is perfect for some m            |
 | mersenne          | 2^p - 1 for prime p.  If also prime, called a Mersenne prime   |
 | primorial         | product of the first k primes                                  |
-| compositorial     | produce of the first k composites                              |
+| compositorial     | product of the first k composites                              |
 | square            | number of objects in some k by k square = k*k                  |
 | cube              | number of objects in some k by k by k cube = k*k*k             |
 | triangle          | same for triangle with k objects on a side = k*(k+1)/2         |

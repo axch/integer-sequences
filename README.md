@@ -305,6 +305,49 @@ sequences](#provided-sequences), Integer Sequences provides
 - `(upside-down-glyph digit)` Returns the digit that the given one
   reads as upside down, of `#f` if there is none.
 
+Developer Documentation
+=======================
+
+The developer documentation is the source code and the commentary
+therein.  In particular, each source file has some discussion at the
+beginning of what that file is about and what the salient things in it
+are.  Here's a table of contents (and suggested reading order):
+
+- Interesting stuff
+
+  - `numbers.scm`: The actual definitions of the
+    [sequences](#provided-sequences), as well as the [supporting
+    facilities](#supporting-facilities).
+  - `numbers-meta.scm`: The sequence completion machinery and the
+    `integer-sequence` macro.
+  - `numbers-meta.fig`: The diagram of the sequence operations
+    and the transformations from one to another.
+
+- Support
+
+  - `support/srfi-45.scm`: Iterative forcing a la SRFI 45.
+  - `support/streams.scm`: The streams library.
+  - `support/auto-compilation.scm`: Automatically invoke the MIT
+    Scheme compiler, if necessary and possible, to (re)compile files
+    before loading them.  This has nothing to do with Integer
+    Sequences, but I figured copying it in was easier than making an
+    external dependency.
+  - `load.scm`: Orchestrate the loading sequence.  Nothing interesting
+    to see here.
+  - `Makefile`: Run the test suite, build a local copy of this
+    documentation, or render diagrams from `numbers-meta.fig`.  Note
+    that there is no "build" as such; source is automatically
+    recompiled at loading time as needed.
+  - `LICENSE`: The AGPLv3, under which Integer Sequences is licensed.
+
+- Test Suite
+
+  - Run it with `make test`.
+  - The `test/` directory contains the actual test suite.
+  - The `testing/` directory is a git submodule pointed at the [Test
+    Manager](http://github.com/axch/test-manager/) framework that the
+    test suite relies upon.
+
 Portability
 ===========
 

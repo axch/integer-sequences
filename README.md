@@ -94,8 +94,8 @@ implement all the sequences functions described
 | semiprime         | integers with exactly two prime factors, counting multiplicity |
 | square-free       | integers divisible by each prime at most once                  |
 | perfect           | n = sum of all proper divisors of n := aliquot(n)              |
-| abundant          | n < sum of all proper divisors of n =                          |
-| deficient         | n > sum of all proper divisors of n =                          |
+| abundant          | n < sum of all proper divisors of n                            |
+| deficient         | n > sum of all proper divisors of n                            |
 | amicable          | not perfect, but n = aliquot(aliquot(n))                       |
 | aspiring          | not perfect, but aliquot^m(n) is perfect for some m            |
 | mersenne          | 2^p-1 for prime p.  If also prime, called a Mersenne prime     |

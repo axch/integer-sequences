@@ -130,7 +130,7 @@ implement all the sequences functions described
 
 All of these are strictly monotonic except the Fibonacci numbers, so
 their integer inverses are well defined.  By special dispensation,
-`(fibonacci-root 1)` returns 1 (as opposed to 2), and
+`(fibonacci-root 1)` returns 1 (as opposed to 2); and
 `(count-fibonaccis 1 4)` returns 4 (as opposed to 3), on the gounds
 that 1 is a Fibonacci number twice.
 

@@ -311,7 +311,7 @@ macro facility with controlled non-hygiene.
 Author
 ======
 
-Alexey Radul, axch@mit.edu.  The streams library was written primarily
+Alexey Radul, <axch@mit.edu>.  The streams library was written primarily
 by Taylor Campbell, maintained and modified by Alexey Radul and Joyce
 Chen.
 

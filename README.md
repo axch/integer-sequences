@@ -7,7 +7,7 @@ By "recreational number theory" I mean facilities for playing around
 with various properties and sequences of integers, such as factorials,
 fibonacci numbers, primes, triangle numbers, etc.
 
-The bulk of the Integer Sequences library is, surprise surprise,
+The Integer Sequences library is, surprise surprise,
 organized around the concept of an integer sequence.  Every integer
 sequence can be viewed as a property that an integer might have,
 namely whether that integer is in that sequence or not; and every

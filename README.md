@@ -253,7 +253,7 @@ to the like-named procedures operating on lists.
 - `(stream-count predicate stream)` does not terminate if the stream is infinite
 - `(stream-unfold seed generator #!optional stop? tail-generator)`
   Return a stream of `seed`, `(generator seed)`, `(generator
-  (generator seed))`, until (stop? (generator^k seed)) is true.  If
+  (generator seed))`, etc, until `(stop? (generator^k seed))` is true.  If
   `tail-generator` is supplied, the stream ends with `(tail-generator
   (generator^k seed))`, which, if not `stream-nil`, will cause the
   stream to be improper.  If `stop?` is not supplied or never returns

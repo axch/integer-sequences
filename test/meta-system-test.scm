@@ -217,4 +217,37 @@
    (= 6765 ((inverter->generator fibonacci-root) 20))
    (equal? '(10 14 15 21 22)
     (stream-take->list ((up-ranger->up-streamer semiprimes-between) 10) 5))
-   ))
+   )
+
+ (let ((cube-seq (construct-seq 'generator cube)))
+   (for-each
+    (lambda (name accessor)
+      (let ((cube-seq2 (construct-seq name (accessor cube-seq))))
+        ;; cube-seq2 is built from one of the operations constructed
+        ;; for cube-seq
+        (define-each-check
+          (= 216 ((seq-generator     cube-seq2) 6))
+          (= 6   ((seq-inverter      cube-seq2) 216))
+          (< 5   ((seq-inverter      cube-seq2) 200) 6)
+                 ((seq-tester        cube-seq2) 125)
+          (not   ((seq-tester        cube-seq2) 127))
+          (= 2   ((seq-counter       cube-seq2) 17 100))
+          (equal?
+           '(1 8 27 64)
+           (stream-take->list ((seq-streamer      cube-seq2)) 4))
+          (equal?
+           '(27 64 125 216)
+           (stream-take->list ((seq-up-streamer   cube-seq2) 20) 4))
+          (equal?
+           '(125 64 27 8 1)
+           (stream->list   ((seq-down-streamer cube-seq2) 170)))
+          (equal?
+           '(27 64)
+           (stream->list   ((seq-up-ranger     cube-seq2) 27 125)))
+          (equal?
+           '(216 125 64)
+           (stream->list   ((seq-down-ranger   cube-seq2) 27 216))))))
+    '(inverter tester counter streamer
+      up-streamer down-streamer up-ranger down-ranger)
+    (list seq-inverter seq-tester seq-counter seq-streamer
+          seq-up-streamer seq-down-streamer seq-up-ranger seq-down-ranger))))

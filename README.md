@@ -349,7 +349,7 @@ are.  Here's a table of contents (and suggested reading order):
     test suite relies upon.
 
 Portability
-===========
+-----------
 
 Integer Sequences is written in MIT Scheme with no particular
 portability considerations in mind.  On the one hand, it is purely

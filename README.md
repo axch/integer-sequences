@@ -19,6 +19,19 @@ respectively, of positive integers).  Monotonically increasing
 sequences can also be inverted, that is, the index of an element is
 well-defined and can be computed.
 
+Installation
+------------
+
+Just `git clone` this repository,
+```scheme
+(load "integer-seqeunces/load")
+```
+and hack away.
+
+If you want to develop Integer Sequences, you will want to also get the
+unit test framework that Integer Sequences uses.  Type `git submodule
+init` and `git submodule update`.
+
 Sequence Operations
 -------------------
 

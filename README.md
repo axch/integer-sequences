@@ -288,7 +288,7 @@ sequences](#provided-sequences), Integer Sequences provides
 - `(number->bits n)` Alias for `binary-digits`
 - `(digits->number list-of-digits #!optional base)` Inverse of
   `number->digits` (assuming the same `base`).  Default `base` is 10.
-- `(bitcount n)` Number of 1s in the binary expansions of `n`.
+- `(bitcount n)` Number of 1s in the binary expansion of `n`.
 - `(upside-down-glyph digit)` Returns the digit that the given one
   reads as upside down, of `#f` if there is none.
 

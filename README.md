@@ -275,7 +275,7 @@ sequences](#provided-sequences), Integer Sequences provides
 - `(smallest-divisor n #!optional start-from)` If the optional
   argument is supplied, only divisors `>=` to it will be considered.
 - `(prime-factors n)`  This is not a fancy factorization algorithm.
-- `(divisors n)` All divisors as a list
+- `(divisors n)` All divisors as a list, in increasing order.
 - `(proper-divisors n)`
 - `(sigma n)` The operator that generates the Aliquot sequence: the
   sum of the proper divisors.

@@ -338,6 +338,7 @@ a relatively sensible order, until they produce no more change."
      inverter->tester
      inverter->counter
      counter->tester
+     counter->inverter
      generator->streamer
 
      down-ranger->down-streamer
@@ -346,6 +347,8 @@ a relatively sensible order, until they produce no more change."
      down-streamer->down-ranger
      up-ranger->tester
      down-ranger->tester
+     up-ranger->counter
+     down-ranger->counter
 
      ;; TODO Binary transforms go here
 
@@ -356,7 +359,10 @@ a relatively sensible order, until they produce no more change."
      tester->up-ranger
      tester->down-ranger
      tester->up-streamer
+     up-ranger->up-streamer
 
+     up-ranger->down-ranger
+     down-ranger->up-ranger
      streamer->generator
      ))
 

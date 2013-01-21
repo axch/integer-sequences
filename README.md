@@ -85,7 +85,7 @@ implement all the sequences functions described
 [above](#sequence-operations).
 
 | Singular Name     | Brief Definition                                               |
-|-------------------+----------------------------------------------------------------|
+|-------------------|----------------------------------------------------------------|
 | integer           | the integers                                                   |
 | factorial         | product of the first k consecutive integers                    |
 | fibonacci         | 1, 1, ..., fib(n-1) + fib(n-2)                                 |

@@ -264,8 +264,8 @@ Supporting Facilities
 
 Some of the helper functions used in defining sequences are useful in
 their own right, for thinking about numbers and their properties.  In
-addition to the operations implied by the above sequences, Integer
-Sequences provides
+addition to the operations implied by the [provided
+sequences](#provided-sequences), Integer Sequences provides
 
 - `(increment n)`
 - `(decrement n)`

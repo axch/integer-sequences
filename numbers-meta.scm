@@ -68,8 +68,20 @@
 ;;; is the 1th square, 4 is the 2th square, etc; and the stream of
 ;;; squares starts (1 4 9 ...)
 
-;;; TODO Completeness: finish implementing the arrows in the diagram
-;;; (recurrences, fiddling).
+;;; TODO Completeness: Incorporate a theory of recurrences?
+
+;;; TODO Performance: Here's what the counter->inverter fiddle looks
+;;; like:
+;; (define (counter->inverter counter)
+;;   (lambda (n)
+;;     (+ (counter 0 n) ; Exclusive of n
+;;        (let ((n-count (counter n (+ n 1)))) ; Exclusive of n+1
+;;          (if (= n-count 0)
+;;              1/2 ; n is not not an element
+;;              n-count)))))
+;;; test it for correctness and performance and fit it in.  It could be
+;;; useful for going from tester->ranger->counter->inverter instead
+;;; of tester->streamer->generator->inverter
 
 ;;; TODO Performance: collapse appropriate compositions of arrows
 ;;; (notably the-foos->foo->foo-root and foo-root->foo->streams could

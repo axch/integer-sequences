@@ -51,10 +51,9 @@
 
 ;;; TODO Completeness: Incorporate a theory of recurrences?
 
-;;; TODO Performance: test counter->inverter for correctness and
-;;; performance and fit it in.  It could be useful for going from
-;;; tester->ranger->counter->inverter instead of
-;;; tester->streamer->generator->inverter.
+;;; TODO Performance: test counter->inverter for performance and fit
+;;; it in.  Going tester->ranger->counter->inverter is probably better
+;;; than tester->streamer->generator->inverter.
 
 ;;; TODO Performance: collapse appropriate compositions of arrows
 ;;; (notably the-foos->foo->foo-root and foo-root->foo->streams could

@@ -259,6 +259,37 @@ to the like-named procedures operating on lists.
   stream to be improper.  If `stop?` is not supplied or never returns
   `#t`, the stream will be infinite.
 
+Supporting Facilities
+---------------------
+
+Some of the helper functions used in defining sequences are useful in
+their own right, for thinking about numbers and their properties.  In
+addition to the operations implied by the above sequences, Integer
+Sequences provides
+
+- `(increment n)`
+- `(decrement n)`
+- `(sum list-of-numbers)`
+- `(product list-of-numbers)`
+- `(divides? divisor number)`
+- `(smallest-divisor n #!optional start-from)` If the optional
+  argument is supplied, only divisors `>=` to it will be considered.
+- `(prime-factors n)`  This is not a fancy factorization algorithm.
+- `(divisors n)` All divisors as a list
+- `(proper-divisors n)`
+- `(sigma n)` The operator that generates the Aliquot sequence: the
+  sum of the proper divisors.
+- `(number->digits n #!optional base)` The digits in the base `base`
+  (default 10) expansion of `n` as a list (most significant first).
+- `(digits n #!optional base)` Alias for `number->digits`
+- `(binary-digits n)`
+- `(number->bits n)` Alias for `binary-digits`
+- `(digits->number list-of-digits #!optional base)` Inverse of
+  `number->digits` (assuming the same `base`).  Default `base` is 10.
+- `(bitcount n)` Number of 1s in the binary expansions of `n`.
+- `(upside-down-glyph digit)` Returns the digit that the given one
+  reads as upside down, of `#f` if there is none.
+
 Portability
 ===========
 

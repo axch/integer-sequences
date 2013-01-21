@@ -27,46 +27,27 @@
 ;;; seen as a special case of such a mechanism).  One wants, however,
 ;;; to be able to carry out various operations on sequences,
 ;;; regardless of how they are defined, including generating
-;;; individual elements, constructing a (possibly bounded) stream of
-;;; elements, testing whether a number is an element, and, if it is,
-;;; finding out its index.  These operations can all be mechanically
-;;; constructed from any of the means of defining the sequence, and
-;;; certain assumptions about the sequence.  The exact operations,
-;;; relationships, and means of generating operations from other
-;;; operations are laid out in the accompanying figure
-;;; numbers-meta.{fig|png}.  The code below implements these
-;;; transformations, assuming that all sequences are from N --> N,
-;;; infinite, and strictly monotonically increasing.
+;;; individual elements by index, constructing a (possibly bounded)
+;;; stream of elements, testing whether a number is an element, and,
+;;; if it is, finding out its index.
+
+;;; These operations can all be mechanically constructed from any of
+;;; the means of defining the sequence, and certain assumptions about
+;;; the sequence.  A summary of the operations, relationships, and
+;;; means of generating operations from other operations are laid out
+;;; in the accompanying figure numbers-meta.fig.  The code below
+;;; implements these transformations, assuming that all sequences are
+;;; from Z+ --> Z+, infinite, and strictly monotonically increasing.
 
 ;;; This file culminates in the definition of the integer-sequence
-;;; macro which, among other things, implements a naming convention
-;;; defining all the derived procedures that operate on an integer
-;;; sequence.  The operations and naming convention, for a sequence
-;;; named foo, are:
+;;; macro which constructs any missing sequence operations and defines
+;;; them in the environment according to the naming convention given
+;;; in the README file.  In addition, integer-sequence defines the
+;;; sequence meta object
 
 ;;; Operation      Name                Function
-;;; generator      foo                 the kth foo
-;;; inverter       foo-root            "Integer Inverse", below 
-;;; tester         foo?                is this a foo?
-;;; counter        count-foos          how many foos in this range
-;;; streamer       the-foos            stream of all foos
-;;; up-streamer    foos-from           same, starting from >= k
-;;; down-streamer  foos-down-from      same, but <= k and down
-;;; up-ranger      foos-between        foos between given bounds
-;;; down-ranger    foos-between-down   same, but down
+;;; ...            ...                 ...
 ;;; meta-object    foo-seq             the meta object, below
-
-;;; Two of these concepts, the integer inverse and the meta object,
-;;; are described in detail below.
-
-;;; All ranges are taken to be inclusive of the boundary at the side
-;;; where enumeration begins, and exclusive where it ends.  When
-;;; enumertaing upward, as is usual, this is in keeping with the
-;;; standard programming convention "inclusive low, exclusive high".
-
-;;; In keeping with mathematical tradition, sequences are 1-indexed: 1
-;;; is the 1th square, 4 is the 2th square, etc; and the stream of
-;;; squares starts (1 4 9 ...)
 
 ;;; TODO Completeness: Incorporate a theory of recurrences?
 
@@ -88,7 +69,7 @@
 ;;; shave off a log factor); also, I can avoid allocating the promises
 ;;; that the streams would generate by doing loop fusion.
 
-;;; Possible, as yet unimplemented extensions: non-decreasing
+;;; TODO Possible, as yet unimplemented extensions: non-decreasing
 ;;; sequences, finite sequences, negative numbers?, and non-monotonic
 ;;; sequences?
 
@@ -102,19 +83,16 @@
 
 ;;;; Integer Inverses
 
-;;; Define an "integer inverse" of a monotonic function f: N --> N to
-;;; be any function g: N --> Q such that, for each n, either
-;;; 
-;;; g(n) is an integer and f(g(n)) = n or
-;;; g(n) is not an integer and f(floor(g(n))) < n < f(ceiling(g(n))).
-;;; 
-;;; By monotonicity of f, floor(g(n)) and ceiling(g(n)) always exist
-;;; and are unique.  The interesting thing is that such a g can always
-;;; be defined to return exact Scheme numbers, thereby avoiding all
-;;; problems with roundoff error (which can be very significant when
-;;; dealing with large integers, as for instance testing whether 5^200
-;;; is a square).
-;;; 
+;;; As a reminder from the README, the definition of an integer
+;;; inverse is
+;;;
+;;;   Define an _integer inverse_ of a monotonic function f: Z+ --> Z+
+;;;   to be any function g: Z+ --> Q+ such that, for each n, either
+;;;
+;;;   - g(n) is an integer and f(g(n)) = n, or
+;;;   - g(n) is not an integer and f(floor(g(n))) < n < f(ceiling(g(n))),
+;;;     where we formally take f(0) = 0 to cover the case where n < f(1).
+;;;
 ;;; The two procedures below implement two ways to derive such a g
 ;;; given an f (which is presumed, but not tested, to be monotonic).
 (define (invert-by-counting f)
@@ -180,11 +158,11 @@
 
 ;;;; The Single Steps
  
-;;; These are the single arrows in the diagram numbers-meta.{fig|png}.
-;;; The box in the diagram singles out operations that are so similar
-;;; that interactions with the set of them are collapsed into single
-;;; arrows in the diagram; here they appear as separate functions.
-;;; Not all the arrows in the diagram are implemented yet.
+;;; These are the single arrows in the diagram
+;;; numbers-meta-implemented.png (derived from numbers-meta.fig).  The
+;;; box in the diagram singles out operations that are so similar that
+;;; interactions with the set of them are collapsed into single arrows
+;;; in the diagram; here they appear as separate functions.
 
 (define (generator->inverter generator)
   (invert-by-binary-search generator))
@@ -216,11 +194,11 @@
 (define (streamer->generator streamer)
   (lambda (n)
     (stream-car (stream-drop (streamer) (- n 1)))))
-
+
 (define (generator->streamer generator)
   (lambda ()
     (stream-map generator (the-integers))))
-
+
 (define (streamer->up-streamer streamer)
   (lambda (lower)
     (stream-drop-while (lambda (n) (< n lower))
@@ -283,9 +261,9 @@
 ;;; from any reasonably definitional operation by any of several
 ;;; routes, at greatly varying cost in performance, maintaining
 ;;; metadata and trying the derivations in a sensible order is
-;;; valuable.  N.B.: Not all of the arrows in the diagram are
-;;; implemented yet, and not all of the implemented arrows are tried
-;;; by this automatic system.
+;;; valuable.  N.B.: Not all of the implemented transformations are
+;;; tried by this automatic system; the ones that are are summarized
+;;; in numbers-meta.png (derived from numbers-meta.fig).
 
 (define-structure
   (seq keyword-constructor)

@@ -153,7 +153,7 @@
 
 (define (prime-factors number)
   (define (helper number min-divisor)
-    (if (= number 1)
+    (if (<= number 1)
 	'()
 	(let ((div (smallest-divisor number min-divisor)))
 	  (cons div (helper (/ number div) div)))))

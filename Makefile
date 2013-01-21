@@ -19,18 +19,20 @@
 test:
 	mit-scheme --compiler -heap 6000 --batch-mode --no-init-file --eval '(set! load/suppress-loading-message? #t)' --eval '(begin (load "load") (load "test/load") (run-tests-and-exit))'
 
+pngs: numbers-meta.png numbers-meta-implemented.png numbers-meta-invented.png
+
 numbers-meta.png: numbers-meta.fig Makefile
 # The place on github where this goes appears to be 824 pixels wide, but -Z is in
 # centimeters for this figure.
 	fig2dev -L png -Z 24.8 -D +50 numbers-meta.fig numbers-meta.png
 
 numbers-meta-implemented.png: numbers-meta.fig Makefile
-	fig2dev -L png -Z 24.8 -D +50,55 numbers-meta.fig numbers-meta.png
+	fig2dev -L png -Z 24.8 -D +50,55 numbers-meta.fig numbers-meta-implemented.png
 
 numbers-meta-invented.png: numbers-meta.fig Makefile
-	fig2dev -L png -Z 24.8 -D +50,55,60 numbers-meta.fig numbers-meta.png
+	fig2dev -L png -Z 24.8 -D +50,55,60 numbers-meta.fig numbers-meta-invented.png
 
 README.html: README.md
 	redcarpet --parse-fenced-code-blocks --render-with-toc-data --render-with-tables README.md > README.html
 
-.PHONY: test
+.PHONY: test pngs

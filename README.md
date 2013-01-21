@@ -252,6 +252,10 @@ to the like-named procedures operating on lists.
   `stream-filter`, etc, and consumed by `stream-for-each` need never be
   stored in memory all at once.
 - `(stream-append stream1 stream2)`
+- `(stream-concat stream-of-streams)` is not like `apply append` of
+  lists because it returns the answer stream immediately, and the
+  backbone argument stream is only forced as far as necessary to
+  compute as much of the answer as requested.
 - `(list->stream list)`
 - `(stream->list stream)` does not terminate if the stream is infinite.
 - `(stream x y ...)` analagous to the procedure `list`, but a macro

@@ -18,11 +18,11 @@
 
 (declare (usual-integrations))
 
-;;;; Some pseudo-number-theoretic routines
+;;;; Some integer sequences
 
-;;; These are definitions for a bunch of integer sequences that I want
-;;; access to repeatedly; see numbers-meta.scm for a description for
-;;; the sequence facilities I want and, in particular, the
+;;; These are definitions for a bunch of integer sequences and the
+;;; helpers needed to compute them; see numbers-meta.scm for a
+;;; description for the sequence facilities and, in particular, the
 ;;; integer-sequence macro that defines them.
 
 ;;; You will notice in this file that some procedures are defined
@@ -34,6 +34,7 @@
 ;;; Scheme image.
 
 ;;;; Basics
+
 (define (increment n)
   (+ n 1))
 
@@ -45,7 +46,7 @@
 
 (define (product numbers)
   (apply * numbers))
-
+
 (define (factorial n)
   (if (= n 0)
       1
@@ -136,6 +137,20 @@
     (= (length factors) (length (delete-duplicates factors)))))
 (integer-sequence square-free tester)
 
+(define (mersenne k)
+  (- (expt 2 (prime k)) 1))
+(integer-sequence mersenne generator)
+
+(define (primorial number)
+  (product (stream-take->list (the-primes) number)))
+(integer-sequence primorial generator)
+
+(define (compositorial number)
+  (product (stream-take->list (the-composites) number)))
+(integer-sequence compositorial generator)
+
+;;;; Divisors
+
 (define (prime-factors number)
   (define (helper number min-divisor)
     (if (= number 1)
@@ -198,18 +213,6 @@
 	       (else
 		(loop next (sigma next) (+ count 1)))))))
 (integer-sequence aspiring tester)
-
-(define (mersenne k)
-  (- (expt 2 (prime k)) 1))
-(integer-sequence mersenne generator)
-
-(define (primorial number)
-  (product (stream-take->list (the-primes) number)))
-(integer-sequence primorial generator)
-
-(define (compositorial number)
-  (product (stream-take->list (the-composites) number)))
-(integer-sequence compositorial generator)
 
 ;;;; Figurate numbers
 
@@ -299,7 +302,7 @@
 (define (odious? number)
   (= 1 (remainder (bitcount number) 2)))
 (integer-sequence odious tester)
-
+
 (define (multidigit? number)
   (> (length (number->digits number)) 1))
 
@@ -307,51 +310,9 @@
   (>= number 10))
 (integer-sequence multidigit tester)
 
-(define (palindrome? number)
-  (equal? (number->digits number)
-	  (reverse (number->digits number))))
-(integer-sequence palindrome tester)
-
-(define (emirp? number)
-  (and (prime? number)
-       (prime? (digits->number (reverse (number->digits number))))
-       (not (palindrome? number))))
-(integer-sequence emirp tester)
-
-(define (emirpimes? number)
-  (and (semiprime? number)
-       (semiprime? (digits->number (reverse (number->digits number))))
-       (not (palindrome? number))))
-(integer-sequence emirpimes tester)
-
-(define (upside-down-glyph digit)
-  (let ((pair (assoc digit '((0 . 0) (1 . 1) (6 . 9) (8 . 8) (9 . 6)))))
-    (and pair (cdr pair))))
-
-(define (strobogrammatic? number)
-  (equal? (number->digits number)
-	  (map upside-down-glyph (reverse (number->digits number)))))
-(integer-sequence strobogrammatic tester)
-
 (define (apocalyptic-power? number)
   (substring? "666" (number->string (expt 2 number))))
 (integer-sequence apocalyptic-power tester)
-
-(define (smith? number)
-  (and (composite? number)
-       (= (sum (number->digits number))
-	  (sum (map (lambda (p)
-		      (sum (number->digits p)))
-		    (prime-factors number))))))
-(integer-sequence smith tester)
-
-(define (hoax? number)
-  (and (composite? number)
-       (= (sum (number->digits number))
-	  (sum (map (lambda (p)
-		      (sum (number->digits p)))
-		    (delete-duplicates (prime-factors number)))))))
-(integer-sequence hoax tester)
 
 (define (repunit? number)
   (every (lambda (x) (= x 1)) (number->digits number)))
@@ -375,3 +336,47 @@
     (and (> (length digits) 2)
 	 (undulating? (car digits) (cadr digits) (cddr digits)))))
 (integer-sequence undulating tester)
+
+(define (palindrome? number)
+  (equal? (number->digits number)
+	  (reverse (number->digits number))))
+(integer-sequence palindrome tester)
+
+;;;; More than just digits
+
+(define (emirp? number)
+  (and (prime? number)
+       (prime? (digits->number (reverse (number->digits number))))
+       (not (palindrome? number))))
+(integer-sequence emirp tester)
+
+(define (emirpimes? number)
+  (and (semiprime? number)
+       (semiprime? (digits->number (reverse (number->digits number))))
+       (not (palindrome? number))))
+(integer-sequence emirpimes tester)
+
+(define (upside-down-glyph digit)
+  (let ((pair (assoc digit '((0 . 0) (1 . 1) (6 . 9) (8 . 8) (9 . 6)))))
+    (and pair (cdr pair))))
+
+(define (strobogrammatic? number)
+  (equal? (number->digits number)
+	  (map upside-down-glyph (reverse (number->digits number)))))
+(integer-sequence strobogrammatic tester)
+
+(define (smith? number)
+  (and (composite? number)
+       (= (sum (number->digits number))
+	  (sum (map (lambda (p)
+		      (sum (number->digits p)))
+		    (prime-factors number))))))
+(integer-sequence smith tester)
+
+(define (hoax? number)
+  (and (composite? number)
+       (= (sum (number->digits number))
+	  (sum (map (lambda (p)
+		      (sum (number->digits p)))
+		    (delete-duplicates (prime-factors number)))))))
+(integer-sequence hoax tester)

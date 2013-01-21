@@ -229,7 +229,7 @@ to the like-named procedures operating on lists.
 - `(stream-map procedure stream)`
 - `(stream-filter predicate stream)`
 - `(stream-filter-map procedure stream)` like `stream-map`, but
-  exclude elements on which `procedure` returned `#f`.
+  exclude elements on which `procedure` returns `#f`.
 - `(stream-for-each procedure stream)` note that this differs from
   `stream-map` in that it actually forces evaluation of the
   `procedure` on the `stream`, instead of simply returning a new

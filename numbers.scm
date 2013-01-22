@@ -88,6 +88,10 @@
                   (+ next-factor 1)
                   (+ next-divisor 1))))))
 
+(define (catalan k)
+  (/ (choose k (* 2 k)) (+ k 1)))
+(integer-sequence catalan generator)
+
 (define (distribute num-objects num-buckets)
   "Distribute exactly n identical objects among k buckets."
   ;; Consider a sequence of n+k-1 slots, exactly k-1 of which must be

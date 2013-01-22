@@ -36,6 +36,8 @@
   (= 1 (choose 5 5))
   (= 20 (choose 3 6))
   (= 1 (choose 6 6))
+  (equal? '(1 2 5 14 42 132 429 1430 4862 16796)
+          (stream-take->list (the-catalans) 10))
   (= 55 (fibonacci 10))
   (fibonacci? 55)
   (not (fibonacci? 70))

@@ -24,10 +24,10 @@ pngs: numbers-meta.png numbers-meta-implemented.png
 numbers-meta.png: numbers-meta.fig Makefile
 # The place on github where this goes appears to be 824 pixels wide, but -Z is in
 # centimeters for this figure.
-	fig2dev -L png -Z 24.8 -D +50 numbers-meta.fig numbers-meta.png
+	fig2dev -L png -Z 24.8 -D +50 -S 4 numbers-meta.fig numbers-meta.png
 
 numbers-meta-implemented.png: numbers-meta.fig Makefile
-	fig2dev -L png -Z 24.8 -D +50,55 numbers-meta.fig numbers-meta-implemented.png
+	fig2dev -L png -Z 24.8 -D +50,55 -S 4 numbers-meta.fig numbers-meta-implemented.png
 
 README.html: README.md
 	redcarpet --parse-fenced-code-blocks --render-with-toc-data --render-with-tables README.md > README.html

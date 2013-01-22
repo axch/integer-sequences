@@ -74,9 +74,10 @@
 	a
 	(loop b (+ a b) (+ count 1)))))
 
-;; This version is about 6.5 times faster, but I'm not sure that
-;; justifies the extra complexity.
-(define (fibonacci+b n)
+;; This version, using faster matrix exponentiation is about 6.5 times
+;; faster than fibonacci+, but I'm not sure that justifies the extra
+;; complexity.
+(define (fibonacci+by-matrix n)
   (define (mat-* mat1 mat2)
     (let ((a1 (car mat1))
 	  (b1 (cadr mat1))

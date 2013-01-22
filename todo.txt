@@ -68,7 +68,6 @@ Performance improvements
   making use of the above faster shortcuts.
   - In the case of multiple user-supplied starting points, it may be
     nice to allow the user to provide relative costs.
-- Expose the derivation path that was actually taken to user queries?
 - Some streams should probably be remembered because they are sparse
   and expensive, whereas others should be regenerated because they are
   dense and cheap.  How can I admit this distinction into the framework?
@@ -80,3 +79,10 @@ Performance improvements
   exercises.
   - Uncomment the definition of weird numbers and try to get (weird 2)
     to say 836.
+
+Programmatic user interface improvements
+- Make the sequence object store the sequence's name
+- Provide a registry of sequences queryable programmatically by name
+- Allow the sequence object to store a brief blurb about the sequence
+? Autogenerate the sequence table in the README
+- Expose the operation derivation path that was actually taken

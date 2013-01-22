@@ -233,17 +233,18 @@
 	  (cons div (helper (/ number div) div)))))
   (helper number 2))
 
+(define (all-combinations lst #!optional same-combination)
+  (if (default-object? same-combination)
+      (set! same-combination eq?))
+  (if (null? lst)
+      '(())
+      (let ((subcombinations (all-combinations (cdr lst))))
+        (delete-duplicates
+         (append subcombinations
+                 (map (lambda (l) (cons (car lst) l)) subcombinations))
+         same-combination))))
+
 (define (divisors n)
-  (define (all-combinations lst #!optional same-combination)
-    (if (default-object? same-combination)
-        (set! same-combination eq?))
-    (if (null? lst)
-        '(())
-        (let ((subcombinations (all-combinations (cdr lst))))
-          (delete-duplicates
-           (append subcombinations
-                   (map (lambda (l) (cons (car lst) l)) subcombinations))
-           same-combination))))
   (sort (map product (all-combinations (prime-factors n) equal?)) <))
 
 (define (proper-divisors n)
@@ -287,6 +288,14 @@
 	       (else
 		(loop next (sigma next) (+ count 1)))))))
 (integer-sequence aspiring tester)
+
+;; As it is, this is too slow to be really useful.
+#;
+(define (weird? number)
+  (and (abundant? number)
+       (not (member number (map sum (all-combinations (proper-divisors number))) =))))
+#;
+(integer-sequence weird tester)
 
 ;;;; Figurate numbers
 

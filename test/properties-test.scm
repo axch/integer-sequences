@@ -114,6 +114,7 @@
   (equal? '(25 95 119 143) (stream-take->list (the-aspirings) 4))
   (< 2 (aspiring-root 100) 3)
   (< 0 (aspiring-root 10) 1)
+  ; (equal? '(70) (stream-take->list (the-weirds) 1)) Weird numbers are too slow
   (= 2047 (mersenne 5))
   (mersenne? 2047)
   (not (mersenne? 2000))

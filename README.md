@@ -101,6 +101,7 @@ implement all the sequences functions described
 |-------------------|----------------------------------------------------------------|
 | integer           | the integers                                                   |
 | even              | even numbers                                                   |
+| odd               | odd numbers                                                    |
 | factorial         | product of the first k consecutive integers                    |
 | catalan           | (choose k of 2k)/(k+1); the Catalan numbers are magic          |
 | fibonacci         | 1, 1, ..., fib(k-1) + fib(k-2), ...                            |

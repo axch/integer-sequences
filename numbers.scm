@@ -48,9 +48,14 @@
   (apply * numbers))
 
 (define (even k) (* 2 k))
-(define (even-root k) (/ k 2))
+(define (even-root n) (/ n 2))
 ; The system even? is exactly what I want
 (integer-sequence even generator inverter tester)
+
+(define (odd k) (- (* 2 k) 1))
+(define (odd-root n) (/ (+ n 1) 2))
+; The system odd? is exactly what I want
+(integer-sequence odd generator inverter tester)
 
 ;;;; Combinatorics
 

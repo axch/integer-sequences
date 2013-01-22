@@ -288,6 +288,10 @@ sequences](#provided-sequences), Integer Sequences provides
 - `(decrement n)`
 - `(sum list-of-numbers)`
 - `(product list-of-numbers)`
+- `(choose k n)` How many ways are there to pick k objects
+  out of a set of n, without replacement?
+- `(distribute n k)` How many ways are there to distribute exactly n
+  identical objects among k buckets?
 - `(divides? divisor number)`
 - `(smallest-divisor n #!optional start-from)` If the optional
   argument is supplied, only divisors `>=` to it will be considered.

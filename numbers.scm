@@ -47,6 +47,8 @@
 (define (product numbers)
   (apply * numbers))
 
+;;;; Combinatorics
+
 (define (factorial n)
   (if (= n 0)
       1
@@ -59,6 +61,43 @@
 	accum
 	(loop (- n 1) (* accum n)))))
 (integer-sequence factorial generator)
+
+(define (choose k n)
+  "Choose k out of n"
+  (/ (factorial n)
+     (* (factorial k)
+	(factorial (- n k)))))
+
+(define (choose k n)
+  "Choose k out of n"
+  ;; This version comprises three performance transformations.  First,
+  ;; canceling the larger factorial in the denominator saves a bunch
+  ;; of multiplying.  Second, interleaving multiplications with
+  ;; divisions keeps computations out of bignums more.  Third,
+  ;; counting the denominator up (as opposed to down) avoids rational
+  ;; arithmetic (because the intermediate answer is always some
+  ;; binomial coefficient).
+  (if (> k (/ n 2))
+      (choose (- n k) n)
+      (let loop ((answer 1)
+                 (next-factor (+ (- n k) 1))
+                 (next-divisor 1))
+        (if (> next-divisor k)
+            answer
+            (loop (/ (* answer next-factor) next-divisor)
+                  (+ next-factor 1)
+                  (+ next-divisor 1))))))
+
+(define (distribute num-objects num-buckets)
+  "Distribute exactly n identical objects among k buckets."
+  ;; Consider a sequence of n+k-1 slots, exactly k-1 of which must be
+  ;; bucket separators, and the remaining n must be the objects.
+  ;; Distributions of the objects into the buckets are in one-to-one
+  ;; correspondence with such sequences.  There are (choose k-1 out of
+  ;; n+k-1) such sequences.
+  (choose (- num-buckets 1) (+ num-objects (- num-buckets 1))))
+
+;;;; Fibonacci
 
 (define (fibonacci n)
   (cond ((> n 0) (fibonacci+ n))

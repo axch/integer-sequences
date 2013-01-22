@@ -135,6 +135,7 @@ implement all the sequences functions described
 | evil              | binary expansion uses an even number of 1s                     |
 | odious            | binary expansion uses an odd number of 1s                      |
 | multidigit        | decimal expansion has more than 1 digit (i.e., n >= 10)        |
+| narcissistic      | sum of kth powers of its k digits                              |
 | palindrome        | reads the same forwards and backwards in decimal               |
 | emirp             | non-palindromic prime which is also prime read backwards       |
 | emirpimes         | same, but both semiprime                                       |

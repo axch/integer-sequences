@@ -427,6 +427,12 @@
   (= 1 (length (delete-duplicates (number->digits number)))))
 (integer-sequence repdigit tester)
 
+(define (narcissistic? number)
+  (let* ((dig (digits number))
+         (k (length dig)))
+    (= number (sum (map (lambda (d) (expt d k)) dig)))))
+(integer-sequence narcissistic tester)
+
 (define (undulating? number)
   (define (undulating? a b lst)
     (cond ((null? lst)

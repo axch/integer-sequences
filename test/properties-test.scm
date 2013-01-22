@@ -171,6 +171,8 @@
   (not (odious? 6))
   (multidigit? 23)
   (not (multidigit? 5))
+  (equal? '(153 370 371 407)
+          (stream->list (narcissistics-between 100 500)))
   (palindrome? 1)
   (palindrome? 55)
   (palindrome? 141)

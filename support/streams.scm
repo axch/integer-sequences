@@ -23,6 +23,7 @@
 ;;; <http://www.gnu.org/licenses/>.
 
 (declare (usual-integrations))
+(declare (integrate-external "srfi-45"))
 
 ;;;; Even Streams
 

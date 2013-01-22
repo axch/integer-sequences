@@ -384,6 +384,12 @@
 	(loop (cdr digits)
 	      (+ (car digits) (* base total))))))
 
+(define (automorphic? number)
+  (define (is-suffix-of? short long)
+    (equal? short (drop long (- (length long) (length short)))))
+  (is-suffix-of? (digits number) (digits (square number))))
+(integer-sequence automorphic tester)
+
 (define (pandigital? number)
   (= 10 (length (delete-duplicates (number->digits number)))))
 (integer-sequence pandigital tester)

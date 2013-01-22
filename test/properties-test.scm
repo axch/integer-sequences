@@ -160,6 +160,8 @@
   (equal? '(1 2 3 4) (number->digits 1234))
   (equal? '(1 0 1) (number->bits 5))
   (= 1234 (digits->number '(1 2 3 4)))
+  (equal? '(1 5 6 25 76 376 625)
+          (stream-take->list (the-automorphics) 7))
   (pandigital? 1234567890)
   (not (pandigital? 3257454))
   (= 3 (bitcount 7))

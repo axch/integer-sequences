@@ -56,6 +56,34 @@
 (define (odd-root n) (/ (+ n 1) 2))
 ; The system odd? is exactly what I want
 (integer-sequence odd generator inverter tester)
+
+;;;; Oddity
+
+(define (the-lucky-numbers)
+  (define (stream-filter-indexed predicate stream)
+    (let recur ((stream stream)
+                (index 0))
+      (lazy
+       (if (stream-pair? stream)
+           (let ((item (stream-car stream))
+                 (recur (lambda () (recur (stream-cdr stream) (+ index 1)))))
+             (if (predicate item index)
+                 (stream-cons item (recur))
+                 (recur)))
+           stream-nil))))
+  (define (check-luck stream index-of-luck)
+    (let ((lucky (stream-car stream)))
+      (stream-cons lucky
+                   (check-luck
+                    (stream-filter-indexed
+                     (lambda (elt i)
+                       (not (divides? lucky (+ i 1 index-of-luck))))
+                     (stream-cdr stream))
+                    (+ index-of-luck 1)))))
+  ;; One and two are special-cased in the definition to produce an
+  ;; infinite sequence of lucky numbers.
+  (stream-cons 1 (check-luck (stream-cdr (the-odds)) 2)))
+(integer-sequence lucky-number streamer)
 
 ;;;; Combinatorics
 

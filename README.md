@@ -132,6 +132,7 @@ implement all the sequences functions described
 | pronic            | k*(k+1) for some k                                             |
 | lazy-caterer      | maximum number of pieces of pizza makable with k straight cuts |
 | cake              | ditto for planar cuts of cake                                  |
+| lucky-number      | survivors of the "sieve of Josephus Flavius"; see [Wikipedia](http://en.wikipedia.org/wiki/Lucky_number) |
 | automorphic       | decimal expansion of n^2 ends in n                             |
 | pandigital        | decimal expansion uses all 10 digits                           |
 | evil              | binary expansion uses an even number of 1s                     |

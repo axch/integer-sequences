@@ -289,13 +289,26 @@
 		(loop next (sigma next) (+ count 1)))))))
 (integer-sequence aspiring tester)
 
-;; As it is, this is too slow to be really useful.
-#;
-(define (weird? number)
-  (and (abundant? number)
-       (not (member number (map sum (all-combinations (proper-divisors number))) =))))
-#;
-(integer-sequence weird tester)
+;; As it is, both of these are too slow to be really useful.
+#|
+ (define (untouchable? number)
+   (not (member number (map sigma (iota (square number))))))
+
+ (define (untouchable? number)
+   ;; This version short-circuits the sum-of-divisors computations
+   (and (> number 1)
+        (let ((bound (square number)))
+          (let loop ((try 1))
+            (cond ((= number (sigma try)) #f)
+                  ((>= try bound) #t)
+                  (else (loop (+ try 1))))))))
+ (integer-sequence untouchable tester)
+
+ (define (weird? number)
+   (and (abundant? number)
+        (not (member number (map sum (all-combinations (proper-divisors number))) =))))
+ (integer-sequence weird tester)
+|#
 
 ;;;; Figurate numbers
 

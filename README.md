@@ -108,6 +108,7 @@ implement all the sequences functions described
 | prime             | integers > 1 divisible by no other                             |
 | composite         | integers > 1 divisible by another                              |
 | semiprime         | integers with exactly two prime factors, counting multiplicity |
+| twin-prime        | primes that differ from another prime by exactly 2             |
 | square-free       | integers divisible by each prime at most once                  |
 | powerful          | integers divisible by each prime at least twice or not at all  |
 | perfect           | n = sum of all proper divisors of n := aliquot(n)              |

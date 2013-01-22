@@ -186,6 +186,12 @@
   (= 2 (length (prime-factors number))))
 (integer-sequence semiprime tester)
 
+(define (twin-prime? number)
+  (and (prime? number)
+       (or (prime? (+ number 2))
+           (prime? (- number 2)))))
+(integer-sequence twin-prime tester)
+
 (define (square-free? number)
   (let ((factors (prime-factors number)))
     (= (length factors) (length (delete-duplicates factors)))))

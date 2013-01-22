@@ -73,6 +73,8 @@
   (not (semiprime? 7))
   (not (semiprime? 175))
   (semiprime? 4) ; Multiplicity counts
+  (equal? '(3 5 7 11 13 17 19 29 31 41 43)
+          (stream-take->list (the-twin-primes) 11))
   (square-free? 6)
   (not (square-free? 12))
   (equal? '(2 2 2 3) (prime-factors 24))

@@ -157,6 +157,8 @@
   (hexagon? 190)
   (equal? '(2 4 7 11 16 22 29 37 46 56)
           (stream-take->list (the-lazy-caterers) 10))
+  (equal? '(2 4 8 15 26 42 64 93 130 176)
+          (stream-take->list (the-cakes) 10))
   ;; TODO Other figurate numbers
 
   (equal? '(1 2 3 4) (number->digits 1234))

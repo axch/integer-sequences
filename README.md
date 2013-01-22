@@ -131,6 +131,7 @@ implement all the sequences functions described
 | tetrahedron       | same for tetrahedron = k*(k+1)*(k+2)/6                         |
 | pronic            | k*(k+1) for some k                                             |
 | lazy-caterer      | maximum number of pieces of pizza makable with k straight cuts |
+| cake              | ditto for planar cuts of cake                                  |
 | automorphic       | decimal expansion of n^2 ends in n                             |
 | pandigital        | decimal expansion uses all 10 digits                           |
 | evil              | binary expansion uses an even number of 1s                     |

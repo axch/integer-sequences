@@ -359,6 +359,13 @@
 (define (lazy-caterer k)
   (+ 1 (triangle k)))
 (integer-sequence lazy-caterer generator)
+
+(define (cake k)
+  (+ (choose 3 k) (choose 2 k) (choose 1 k) (choose 0 k)))
+
+(define (cake k)
+  (/ (+ (expt k 3) (* 5 k) 6) 6))
+(integer-sequence cake generator)
 
 ;;;; Digits
 

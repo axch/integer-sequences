@@ -416,6 +416,37 @@
   (substring? "666" (number->string (expt 2 number))))
 (integer-sequence apocalyptic-power tester)
 
+(define happy-number?
+  ;; The trick to computing happy numbers reasonably is to notice that
+  ;; after a certain bound, the sum of squares of digits operation
+  ;; cannot increase the number.  This means that all cycles involve
+  ;; reasonably small integers, and detection thereof can be cached.
+  (let* ((bound 200) ; (step k) < (step 199) < 199
+         (cache (make-vector bound)))
+    (define (step n)
+      (sum (map square (digits n))))
+    (define (state n)
+      (let ((cached (vector-ref cache n)))
+        (cond ((or (eq? 'happy cached)
+                   (eq? 'sad cached))
+               cached)
+              ((eq? 'pending cached)
+               (vector-set! cache n 'sad)
+               'sad)
+              ((= 1 n)
+               (vector-set! cache n 'happy)
+               'happy)
+              (else
+               (vector-set! cache n 'pending)
+               (let ((answer (state (step n))))
+                 (vector-set! cache n answer)
+                 answer)))))
+    (lambda (number)
+      (if (>= number bound)
+          (happy-number? (step number))
+          (eq? 'happy (state number))))))
+(integer-sequence happy-number tester)
+
 (define (repunit? number)
   (every (lambda (x) (= x 1)) (number->digits number)))
 

@@ -143,6 +143,7 @@ implement all the sequences functions described
 | apocalyptic-power | n such that 2^n contains "666" as a substring (in decimal)     |
 | smith             | a composite whose sum of digits equals the sum of the digits of its prime factors |
 | hoax              | same, but distinct prime factors                               |
+| happy-number      | summing squares of digits eventually leads to 1, not a cycle   |
 | repunit           | every digit (in decimal) is 1                                  |
 | repdigit          | decimal expansion uses only one distinct digit (e.g., 333)     |
 | undulating        | decimal expansion follows pattern ababababab (e.g., 212)       |

@@ -196,6 +196,8 @@
   (not (smith? 21))
   (hoax? 22)
   (not (hoax? 21))
+  (equal? '(176 188 190 192 193 203 208)
+          (stream-take->list (happy-numbers-from 176) 7))
   (= 111 (repunit 3))
   (repunit? 111)
   (not (repunit? 112))

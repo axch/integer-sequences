@@ -46,6 +46,11 @@
 
 (define (product numbers)
   (apply * numbers))
+
+(define (even k) (* 2 k))
+(define (even-root k) (/ k 2))
+; The system even? is exactly what I want
+(integer-sequence even generator inverter tester)
 
 ;;;; Combinatorics
 

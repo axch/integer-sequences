@@ -29,9 +29,8 @@
 ;=========================================================================
 ; Boxes
 
-(define (box x) (list x))
-(define unbox car)
-(define set-box! set-car!)
+(define-structure promise
+  content)
 
 ;=========================================================================
 ; Primitives for lazy evaluation:
@@ -39,25 +38,25 @@
 (define-syntax lazy
   (syntax-rules ()
     ((lazy exp)
-     (box (cons 'lazy (lambda () exp))))))
+     (make-promise (cons 'lazy (lambda () exp))))))
 
 (define (eager x)
-  (box (cons 'eager x)))
+  (make-promise (cons 'eager x)))
 
 (define-syntax delay
   (syntax-rules ()
     ((delay exp) (lazy (eager exp)))))
 
 (define (force promise)
-  (let ((content (unbox promise)))
+  (let ((content (promise-content promise)))
     (case (car content)
       ((eager) (cdr content))
       ((lazy)  (let* ((promise* ((cdr content)))        
-                      (content  (unbox promise)))                      ; * 
+                      (content  (promise-content promise)))            ; *
                  (if (not (eqv? (car content) 'eager))                 ; *
-                     (begin (set-car! content (car (unbox promise*)))
-                            (set-cdr! content (cdr (unbox promise*)))
-                            (set-box! promise* content)))
+                     (begin (set-car! content (car (promise-content promise*)))
+                            (set-cdr! content (cdr (promise-content promise*)))
+                            (set-promise-content! promise* content)))
                  (force promise))))))
 
 ; (*) These two lines re-fetch and check the original promise in case 

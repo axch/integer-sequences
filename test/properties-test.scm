@@ -77,6 +77,8 @@
   (not (square-free? 12))
   (equal? '(2 2 2 3) (prime-factors 24))
   (equal? '(5 5 7) (prime-factors 175))
+  (equal? '(1 4 8 9 16 25 27 32 36 49)
+          (stream-take->list (the-powerfuls) 10))
   (equal? '(1 2 3 4 5 6 10 12 15 20 30 60) (divisors 60))
   (equal? '(1 2 4 5 10 20 25 50 100) (divisors 100))
   (equal? '(1 2 3 4 5 6 10 12 15 20 30) (proper-divisors 60))

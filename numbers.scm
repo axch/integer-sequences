@@ -191,6 +191,20 @@
     (= (length factors) (length (delete-duplicates factors)))))
 (integer-sequence square-free tester)
 
+(define (powerful? number)
+  (define (all-at-least-twice lst)
+    (if (null? lst)
+        #t
+        (count (cdr lst) (car lst) 1)))
+  (define (count lst item ct)
+    (if (and (pair? lst) (= (car lst) item))
+        (count (cdr lst) item (+ ct 1))
+        (if (>= ct 2)
+            (all-at-least-twice lst)
+            #f)))
+  (all-at-least-twice (prime-factors number)))
+(integer-sequence powerful tester)
+
 (define (mersenne k)
   (- (expt 2 (prime k)) 1))
 (integer-sequence mersenne generator)

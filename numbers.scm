@@ -355,6 +355,10 @@
 (define (pronic n)
   (* n (+ 1 n)))
 (integer-sequence pronic generator)
+
+(define (lazy-caterer k)
+  (+ 1 (triangle k)))
+(integer-sequence lazy-caterer generator)
 
 ;;;; Digits
 

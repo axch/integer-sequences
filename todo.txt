@@ -1,0 +1,82 @@
+Collect more sequences
+- Lucas numbers (non-monotonic in the beginning)
+- Carmichael numbers are important but expensive to compute
+- Fortunate numbers?
+- Powers of 2 are important, but they want to be parametric
+- Practical numbers are expensive to compute
+- Sociable numbers are expensive to compute
+- Ulam numbers form a natural stream, but are sort of expensive to compute
+- Untouchable numbers form another natural stream, but are quite expensive to compute
+- Weird numbers are just plain expensive to compute
+
+There are many sequences of varying degrees of frivolity that depend
+on decimal expansions:
+- Google numbers are a pain to compute
+- Hungry numbers are a pain to compute
+- Vampire numbers are a mild pain to compute
+- How widespread are wasteful, equidigital, frugal, and economical numbers?
+  - http://oeis.org/A046760
+
+The prime elements of another sequence are often a named thing in
+themselves.  Do I want some general mechanism for this?  Sequence
+intersection?
+- Mersenne primes
+- Palindromic primes
+- Lucas primes
+- Lucky primes
+
+Extend the semantics cleanly to nonstrictly monotonic sequences?
+- count-foos includes multiplicity
+- foo-root returns the smallest index (?)
+  - Some care would need to be taken with inversion, because now
+    (foo-root (foo k)) would not always be k.
+- The tester is the only thing that loses multiplicity information; so
+  there should be another operation what returns the number of times a
+  given number appears in the sequence.  It would be given by
+  (count-foos n (+ n 1)) (and determine foo? by just testing > 0), and
+  would take the place of the tester in the interdefinition structure.
+
+Do more model-based (randomized?) testing:
+- For any sequence, for any path through operation space,
+  the procedure constructed by that path should agree on any input
+  with the canonical procedure in that slot.
+- For any sequence, any derived operation can be used as the
+  starting point to compute a new sequence-meta object, every
+  operation of which should agree with the original on any input.
+- For every foo and every k > 0:
+  - (= k (foo-root (foo k)))
+  - (< (foo-root (- (foo k) 1)) k (foo-root (+ (foo k) 1)))
+  - (foo? (foo k)) (though I think this is pretty trivial if they were
+    interderived)
+  - Generally, the relationships used to interderive can also be
+    tested (would this increase confidence that the program works?)
+- invert-by-counting and invert-by-binary-search should always agree.
+
+Performance improvements
+- Write benchmarks exercising the effects of various of the defined
+  transforms.
+- Handwrite or autogenerate more efficient compositions of transforms
+  (for example, going from the streamer to the inverter directly could
+  be a log factor better than going through the generator; also,
+  anything that passes through streams could improve through loop
+  fusion).
+  - Admit binary transforms into the mechanism (by parsing + signs
+    in their names?)
+- Adjust the autocompleter to have a notion of the cost of any
+  particular derivation path, and choose the cheapest (this cannot be
+  mimiced with a fixed search order).  This is especially relevant for
+  making use of the above faster shortcuts.
+  - In the case of multiple user-supplied starting points, it may be
+    nice to allow the user to provide relative costs.
+- Expose the derivation path that was actually taken to user queries?
+- Some streams should probably be remembered because they are sparse
+  and expensive, whereas others should be regenerated because they are
+  dense and cheap.  How can I admit this distinction into the framework?
+  - If the user is writing the streamer themselves they can choose to
+    remember the stream.
+  - They can also construct the streamer from whichever thing they
+    want manually and then autocomplete the rest.
+- The untouchable numbers and the weird numbers are good motivating
+  exercises.
+  - Uncomment the definition of weird numbers and try to get (weird 2)
+    to say 836.

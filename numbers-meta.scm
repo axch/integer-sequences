@@ -304,17 +304,6 @@ empty slots with closures derived, by some path through the
 numbers-meta diagram, from the available operations already in the
 object.  This is done by repeatedly trying the various operations, in
 a relatively sensible order, until they produce no more change."
-  ;; TODO Performace: I need a smarter graph search than this.  It
-  ;; really should choose the end result based on some expectation of
-  ;; the performance of the composition, which cannot really be
-  ;; captured with a static order of things to try.  In the case of
-  ;; multiple starting points, it may be nice to allow the user to
-  ;; provide relative costs.
-
-  ;; TODO Performance: collapse appropriate compositions of arrows
-  ;; (notably the-foos->foo->foo-root and foo-root->foo->streams could
-  ;; shave off a log factor); also, I can avoid allocating the
-  ;; promises that the streams would generate by doing loop fusion.
   (define source transform-source)
   (define target transform-target)
   (define action transform-action)

@@ -341,6 +341,7 @@ are.  Here's a table of contents (and suggested reading order):
     `integer-sequence` macro.
   - `numbers-meta.fig`: The diagram of the sequence operations
     and the transformations from one to another.
+  - `todo.txt`: The "issue tracker".
 
 - Support
 
